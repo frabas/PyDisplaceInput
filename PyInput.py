@@ -20,13 +20,14 @@ class PyInput:
         if self.verbose:
             print("Parsing {} directory, output db to: {}".format(self.inputdir, self.db))
         if os.path.exists(self.db):
+            # Todo: since many scenario can be added to the same db, overwrite should not work this way. Ok for now.
             if not self.overwrite:
                 print("File {} exists, I'll not overwrite it.".format(self.db))
                 exit(1)
             if self.verbose:
                 print("Removing output file {}".format(self.db))
             os.remove(self.db)
-        self.dbobj = Database(self.db)
+        self.dbobj = Database(file=self.db, biosce=self.biosce)
         self.dbobj.createSchema()
 
     def setInput(self, indir):
@@ -36,9 +37,13 @@ class PyInput:
         self.overwrite = overwrite
         self.db = db
 
+    def setScenario(self, scenario):
+        self.biosce = scenario
+
 
 if __name__ == "__main__":
     parser = ArgumentParser()
+    parser.add_argument("--biosce", "-b", type=int, required=True, help="Scenario number")
     parser.add_argument("--directory", "-d",
                         help="Location of the input files, default is the current working directory")
     parser.add_argument("outfile",
@@ -56,6 +61,7 @@ if __name__ == "__main__":
     else:
         program.setInput(args.directory)
 
+    program.setScenario(args.biosce)
     program.setOutput(args.outfile, args.overwrite)
 
     program.run()

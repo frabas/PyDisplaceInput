@@ -6,8 +6,9 @@ Class to manage a database with abstracted functions.
 
 
 class Database:
-    def __init__(self, file, verbose=False):
+    def __init__(self, file, biosce, verbose=False):
         self.db = sqlite3.connect(file)
+        self.biosce = biosce
         self.verbose = verbose
 
     def createSchema(self):
