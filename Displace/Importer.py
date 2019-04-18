@@ -6,8 +6,9 @@ class Importer:
     The main constructor, no parameters.
     """
 
-    def __init__(self, pathformat):
-        self._pathformat = pathformat
+    def __init__(self, path):
+        self._pathformat = path
+        self._path = path
 
     def setpath(self, name):
         self._path = self._pathformat.format(name)

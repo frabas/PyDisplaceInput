@@ -6,6 +6,7 @@ A tool to read, translate and fill the Displace input data (txt files) into a SQ
 import os
 from argparse import ArgumentParser
 
+from Displace.Config import Config
 from Displace.Database import Database
 from Displace.popsspe.Hyperstability import Hyperstability
 
@@ -47,6 +48,12 @@ class PyInput:
         self._dbobj.createScenario(self._biosce_name, self._biosce_notes)
 
         os.chdir(self._inputdir)
+
+        config = Config()
+        config.setpath(self._biosce_name)
+        config.importFile(self._dbobj)
+        self._dbobj.createPopulations(config.nbpops)
+
         for table in self.listOfTables:
             table.setpath(self._biosce_name)
             table.importFile(self._dbobj)

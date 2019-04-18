@@ -1,3 +1,11 @@
+-- we don't know how to generate schema main (class Schema) :(
+create table Config
+(
+    biosce integer,
+    param  text,
+    value  text
+);
+
 create table Scenarios
 (
     biosce integer,
@@ -29,6 +37,6 @@ create table PopulationParameters
         on update cascade on delete cascade
 );
 
-create unique index PopulationParameters_parameter_uindex
+create index PopulationParameters_parameter_index
     on PopulationParameters (parameter);
 

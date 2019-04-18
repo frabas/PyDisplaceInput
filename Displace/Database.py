@@ -33,8 +33,29 @@ class Database:
         c.execute(sql, [self._biosce, biosce_name, biosce_notes])
         self._db.commit()
 
+    """
+    Fills the populations table, with optional names (a list of names)
+    """
+
+    def createPopulations(self, nbpops, names=None):
+        c = self._db.cursor()
+        for id in range(0, nbpops):
+            if names is not None and len(names) > id:
+                name = names[id]
+            else:
+                name = ""
+            sql = "INSERT INTO Populations VALUES(?,?,?)"
+            c.execute(sql, [id, name, self._biosce])
+        self._db.commit()
+
     def insertPopulationParameter(self, popid, name, value):
         c = self._db.cursor()
         sql = "INSERT INTO PopulationParameters VALUES(?,?,?,?)"
         c.execute(sql, [popid, name, value, self.biosce])
+        self._db.commit()
+
+    def insertConfigEntry(self, parameter, value):
+        c = self._db.cursor()
+        sql = "INSERT INTO Config VALUES(?,?,?)"
+        c.execute(sql, [self.biosce, parameter, value])
         self._db.commit()
