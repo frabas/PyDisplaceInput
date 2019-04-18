@@ -18,3 +18,10 @@ class Database:
         with open("schema.ddl", mode="r") as file:
             ddl = file.read()
         self.db.executescript(ddl)
+
+    def createScenario(self, biosce_name, biosce_notes):
+        c = self.db.cursor()
+        sql = "INSERT INTO Scenarios VALUES(?,?,?)"
+        c.execute(sql, [self.biosce, biosce_name, biosce_notes])
+        self.db.commit()
+      

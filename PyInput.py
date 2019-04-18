@@ -16,6 +16,18 @@ class PyInput:
     def setVerbose(self, verbose):
         self.verbose = verbose
 
+    def setInput(self, indir):
+        self.inputdir = indir
+
+    def setOutput(self, db, overwrite=False):
+        self.overwrite = overwrite
+        self.db = db
+
+    def setScenario(self, scenario, scenario_name=None, scenarion_notes=None):
+        self.biosce = scenario
+        self.biosce_name = scenario_name
+        self.biosce_notes = scenarion_notes
+
     def run(self):
         if self.verbose:
             print("Parsing {} directory, output db to: {}".format(self.inputdir, self.db))
@@ -29,21 +41,14 @@ class PyInput:
             os.remove(self.db)
         self.dbobj = Database(file=self.db, biosce=self.biosce)
         self.dbobj.createSchema()
-
-    def setInput(self, indir):
-        self.inputdir = indir
-
-    def setOutput(self, db, overwrite=False):
-        self.overwrite = overwrite
-        self.db = db
-
-    def setScenario(self, scenario):
-        self.biosce = scenario
+        self.dbobj.createScenario(self.biosce_name, self.biosce_notes)
 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--biosce", "-b", type=int, required=True, help="Scenario number")
+    parser.add_argument("--biosce_name", help="Scenario name", default="")
+    parser.add_argument("--biosce_notes", help="Scenario notes", default="")
     parser.add_argument("--directory", "-d",
                         help="Location of the input files, default is the current working directory")
     parser.add_argument("outfile",
@@ -61,7 +66,7 @@ if __name__ == "__main__":
     else:
         program.setInput(args.directory)
 
-    program.setScenario(args.biosce)
+    program.setScenario(args.biosce, args.biosce_name, args.biosce_notes)
     program.setOutput(args.outfile, args.overwrite)
 
     program.run()
