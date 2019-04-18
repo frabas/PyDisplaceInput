@@ -9,10 +9,10 @@ class Database:
     def __init__(self, file, biosce, verbose=False):
         self.db = sqlite3.connect(file)
         self.biosce = biosce
-        self.verbose = verbose
+        self._verbose = verbose
 
     def createSchema(self):
-        if self.verbose:
+        if self._verbose:
             print("Reading ddl from schema.ddl")
 
         with open("schema.ddl", mode="r") as file:
@@ -24,4 +24,3 @@ class Database:
         sql = "INSERT INTO Scenarios VALUES(?,?,?)"
         c.execute(sql, [self.biosce, biosce_name, biosce_notes])
         self.db.commit()
-      
