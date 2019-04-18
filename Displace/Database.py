@@ -17,7 +17,7 @@ class Database:
 
     @property
     def biosce(self):
-        return self.biosce
+        return self._biosce
 
     def createSchema(self):
         if self._verbose:
@@ -31,4 +31,10 @@ class Database:
         c = self._db.cursor()
         sql = "INSERT INTO Scenarios VALUES(?,?,?)"
         c.execute(sql, [self._biosce, biosce_name, biosce_notes])
+        self._db.commit()
+
+    def insertPopulationParameter(self, popid, name, value):
+        c = self._db.cursor()
+        sql = "INSERT INTO PopulationParameters VALUES(?,?,?,?)"
+        c.execute(sql, [popid, name, value, self.biosce])
         self._db.commit()

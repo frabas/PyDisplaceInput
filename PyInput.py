@@ -7,9 +7,12 @@ import os
 from argparse import ArgumentParser
 
 from Displace.Database import Database
+from Displace.popsspe.Hyperstability import Hyperstability
 
 
 class PyInput:
+    listOfTables = [Hyperstability()]
+
     def __init__(self):
         self._verbose = False
 
@@ -42,6 +45,11 @@ class PyInput:
         self._dbobj = Database(file=self._db, biosce=self._biosce)
         self._dbobj.createSchema()
         self._dbobj.createScenario(self._biosce_name, self._biosce_notes)
+
+        os.chdir(self._inputdir)
+        for table in self.listOfTables:
+            table.setpath(self._biosce_name)
+            table.importFile(self._dbobj)
 
 
 if __name__ == "__main__":
