@@ -7,15 +7,15 @@ class Importer:
     """
 
     def __init__(self, path):
-        self._pathformat = path
-        self._path = path
+        self.__pathformat = path
+        self.__path = path
 
     def setpath(self, name):
-        self._path = self._pathformat.format(name)
+        self.__path = self.__pathformat.format(name)
 
     @property
     def path(self):
-        return self._path
+        return self.__path
 
     """
     Import the file into the passed db object
