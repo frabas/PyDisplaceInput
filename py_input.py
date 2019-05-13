@@ -15,48 +15,55 @@ class PyInput:
     listOfTables = [Hyperstability()]
 
     def __init__(self):
-        self._verbose = False
+        self.__verbose = False
+        self.__inputdir = None
+        self.__overwrite = False
+        self.__db = None
+        self.__biosce = None
+        self.__biosce_name = None
+        self.__biosce_notes = None
+        self.__dbobj = None
 
-    def setVerbose(self, verbose):
-        self._verbose = verbose
+    def set_verbose(self, verbose):
+        self.__verbose = verbose
 
-    def setInput(self, indir):
-        self._inputdir = indir
+    def set_input(self, indir):
+        self.__inputdir = indir
 
-    def setOutput(self, db, overwrite=False):
-        self._overwrite = overwrite
-        self._db = db
+    def set_output(self, db, overwrite=False):
+        self.__overwrite = overwrite
+        self.__db = db
 
-    def setScenario(self, scenario, scenario_name=None, scenarion_notes=None):
-        self._biosce = scenario
-        self._biosce_name = scenario_name
-        self._biosce_notes = scenarion_notes
+    def set_scenario(self, scenario, scenario_name=None, scenario_notes=None):
+        self.__biosce = scenario
+        self.__biosce_name = scenario_name
+        self.__biosce_notes = scenario_notes
 
     def run(self):
-        if self._verbose:
-            print("Parsing {} directory, output db to: {}".format(self._inputdir, self._db))
-        if os.path.exists(self._db):
+        if self.__verbose:
+            print("Parsing {} directory, output db to: {}".format(self.__inputdir, self.__db))
+        if os.path.exists(self.__db):
             # Todo: since many scenario can be added to the same db, overwrite should not work this way. Ok for now.
-            if not self._overwrite:
-                print("File {} exists, I'll not overwrite it.".format(self._db))
+            if not self.__overwrite:
+                print("File {} exists, I'll not overwrite it.".format(self.__db))
                 exit(1)
-            if self._verbose:
-                print("Removing output file {}".format(self._db))
-            os.remove(self._db)
-        self._dbobj = Database(file=self._db, biosce=self._biosce)
-        self._dbobj.create_schema()
-        self._dbobj.create_scenario(self._biosce_name, self._biosce_notes)
+            if self.__verbose:
+                print("Removing output file {}".format(self.__db))
+            os.remove(self.__db)
+        self.__dbobj = Database(file=self.__db, biosce=self.__biosce)
+        self.__dbobj.create_schema()
+        self.__dbobj.create_scenario(self.__biosce_name, self.__biosce_notes)
 
-        os.chdir(self._inputdir)
+        os.chdir(self.__inputdir)
 
         config = Config()
-        config.setpath(self._biosce_name)
-        config.import_file(self._dbobj)
-        self._dbobj.create_populations(config.nbpops)
+        config.setpath(self.__biosce_name)
+        config.import_file(self.__dbobj)
+        self.__dbobj.create_populations(config.nbpops)
 
         for table in self.listOfTables:
-            table.setpath(self._biosce_name)
-            table.import_file(self._dbobj)
+            table.setpath(self.__biosce_name)
+            table.import_file(self.__dbobj)
 
 
 if __name__ == "__main__":
@@ -74,14 +81,14 @@ if __name__ == "__main__":
 
     program = PyInput()
     if args.verbose:
-        program.setVerbose(True)
+        program.set_verbose(True)
 
     if args.directory is None:
-        program.setInput(os.path.curdir)
+        program.set_input(os.path.curdir)
     else:
-        program.setInput(args.directory)
+        program.set_input(args.directory)
 
-    program.setScenario(args.biosce, args.biosce_name, args.biosce_notes)
-    program.setOutput(args.outfile, args.overwrite)
+    program.set_scenario(args.biosce, args.biosce_name, args.biosce_notes)
+    program.set_output(args.outfile, args.overwrite)
 
     program.run()
