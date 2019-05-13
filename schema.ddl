@@ -13,6 +13,20 @@ create table Scenarios
     notes  text
 );
 
+create table Nodes
+(
+	id integer not null,
+	x numeric not null,
+	y numeric not null,
+	hidx integer,
+	biosce integer not null
+		constraint Nodes_Scenarios_biosce_fk
+			references Scenarios (biosce)
+				on update cascade on delete cascade,
+	constraint Nodes_pk
+		primary key (id, biosce)
+);
+
 create table Populations
 (
     id     integer,
