@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 """
-A tool to read, translate and fill the Displace input data (txt files) into a SQLite file
+A tool to read, translate and fill the displace input data (txt files) into a SQLite file
 """
 
 import os
 from argparse import ArgumentParser
 
-from Displace.Config import Config
-from Displace.Database import Database
-from Displace.popsspe.Hyperstability import Hyperstability
+from displace.config import Config
+from displace.database import Database
+from displace.popsspe.hyperstability import Hyperstability
 
 
 class PyInput:
@@ -44,19 +44,19 @@ class PyInput:
                 print("Removing output file {}".format(self._db))
             os.remove(self._db)
         self._dbobj = Database(file=self._db, biosce=self._biosce)
-        self._dbobj.createSchema()
-        self._dbobj.createScenario(self._biosce_name, self._biosce_notes)
+        self._dbobj.create_schema()
+        self._dbobj.create_scenario(self._biosce_name, self._biosce_notes)
 
         os.chdir(self._inputdir)
 
         config = Config()
         config.setpath(self._biosce_name)
-        config.importFile(self._dbobj)
-        self._dbobj.createPopulations(config.nbpops)
+        config.import_file(self._dbobj)
+        self._dbobj.create_populations(config.nbpops)
 
         for table in self.listOfTables:
             table.setpath(self._biosce_name)
-            table.importFile(self._dbobj)
+            table.import_file(self._dbobj)
 
 
 if __name__ == "__main__":

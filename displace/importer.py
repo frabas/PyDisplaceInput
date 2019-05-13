@@ -21,5 +21,5 @@ class Importer:
     Import the file into the passed db object
     """
 
-    def importFile(self, db):
+    def import_file(self, db):
         pass

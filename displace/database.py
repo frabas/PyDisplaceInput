@@ -19,7 +19,7 @@ class Database:
     def biosce(self):
         return self._biosce
 
-    def createSchema(self):
+    def create_schema(self):
         if self._verbose:
             print("Reading ddl from schema.ddl")
 
@@ -27,7 +27,7 @@ class Database:
             ddl = file.read()
         self._db.executescript(ddl)
 
-    def createScenario(self, biosce_name, biosce_notes):
+    def create_scenario(self, biosce_name, biosce_notes):
         c = self._db.cursor()
         sql = "INSERT INTO Scenarios VALUES(?,?,?)"
         c.execute(sql, [self._biosce, biosce_name, biosce_notes])
@@ -37,8 +37,9 @@ class Database:
     Fills the populations table, with optional names (a list of names)
     """
 
-    def createPopulations(self, nbpops, names=None):
+    def create_populations(self, nbpops, names=None):
         c = self._db.cursor()
+        # noinspection PyShadowingBuiltins
         for id in range(0, nbpops):
             if names is not None and len(names) > id:
                 name = names[id]
@@ -48,13 +49,13 @@ class Database:
             c.execute(sql, [id, name, self._biosce])
         self._db.commit()
 
-    def insertPopulationParameter(self, popid, name, value):
+    def insert_population_parameter(self, popid, name, value):
         c = self._db.cursor()
         sql = "INSERT INTO PopulationParameters VALUES(?,?,?,?)"
         c.execute(sql, [popid, name, value, self.biosce])
         self._db.commit()
 
-    def insertConfigEntry(self, parameter, value):
+    def insert_config_entry(self, parameter, value):
         c = self._db.cursor()
         sql = "INSERT INTO Config VALUES(?,?,?)"
         c.execute(sql, [self.biosce, parameter, value])

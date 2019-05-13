@@ -1,4 +1,4 @@
-from Displace.Importer import Importer
+from displace.importer import Importer
 
 
 class Config(Importer):
@@ -8,11 +8,14 @@ class Config(Importer):
     def __init__(self):
         super().__init__("simusspe_{}/config.dat")
 
+        self.__nbpops = None
+        self.__nbbenthos = None
+
     @property
     def nbpops(self):
-        return self._nbpops
+        return self.__nbpops
 
-    def importFile(self, db):
+    def import_file(self, db):
 
         fld = 0
         params = []
@@ -21,11 +24,11 @@ class Config(Importer):
                 line = line.strip()
                 if line.startswith("#"):
                     continue
-                db.insertConfigEntry(self.lines[fld], line)
+                db.insert_config_entry(self.lines[fld], line)
                 params.append(line)
                 fld = fld + 1
                 if fld >= len(self.lines):
                     break
 
-        self._nbpops = int(params[0])
-        self._nbbenthos = int(params[1])
+        self.__nbpops = int(params[0])
+        self.__nbbenthos = int(params[1])
