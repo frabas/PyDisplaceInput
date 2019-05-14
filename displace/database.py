@@ -61,3 +61,14 @@ class Database:
         sql = "INSERT INTO Config VALUES(?,?,?)"
         c.execute(sql, [self.biosce, parameter, value])
         self.__db.commit()
+
+    def create_nodes(self, nodes):
+        c = self.db.cursor()
+
+        sql = "INSERT INTO Nodes VALUES (?, ?, ?, ?, ?)"
+
+        # noinspection PyShadowingBuiltins
+        for id, cols in enumerate(nodes):
+            c.execute(sql, (id, *cols, self.biosce))
+
+        self.db.commit()

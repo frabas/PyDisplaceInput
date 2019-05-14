@@ -8,11 +8,12 @@ from argparse import ArgumentParser
 
 from displace.config import Config
 from displace.database import Database
+from displace.graphsspe.coordsnodes import CoordsNodes
 from displace.popsspe.hyperstability import Hyperstability
 
 
 class PyInput:
-    listOfTables = [Hyperstability()]
+    listOfTables = [Hyperstability(), CoordsNodes()]
 
     def __init__(self):
         self.__verbose = False
