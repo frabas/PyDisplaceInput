@@ -1,11 +1,11 @@
 import sqlite3
 
-"""
-Class to manage a database with abstracted functions.
-"""
-
 
 class Database:
+    """
+    Class to manage a database with abstracted functions.
+    """
+
     def __init__(self, file, biosce, verbose=False):
         self.__db = sqlite3.connect(file)
         self.__biosce = biosce
@@ -33,12 +33,13 @@ class Database:
         c.execute(sql, [self.__biosce, biosce_name, biosce_notes])
         self.__db.commit()
 
-    """
-    Fills the populations table, with optional names (a list of names)
-    """
-
     def create_populations(self, nbpops, names=None):
+        """
+        Fills the populations table, with optional names (a list of names)
+        """
+
         c = self.__db.cursor()
+
         # noinspection PyShadowingBuiltins
         for id in range(0, nbpops):
             if names is not None and len(names) > id:
