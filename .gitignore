@@ -12,3 +12,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Db
+*.db
+*.sqlite
+*.sqlite3
+
