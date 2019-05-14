@@ -1,19 +1,20 @@
-from itertools import tee
+from itertools import tee, islice
 
 
-def stepped_grouper(iterable, n, step):
-    # TODO better documentation
+def nwise(iterable, n, step):
     """
-    Collect data into fixed-length chunks or blocks with given step
+    Iterate over iterable n elements at a time, apart from each other by step
 
-    See grouper recipe from https://docs.python.org/3/library/itertools.html
+    nwise("ABCDEFGHI", 3, 3) --> ADG, BEH, CFI
+
+    nwise(range(4), 2, 1) <--> pairwise(range(4))
+
+    See pairwise recipe from https://docs.python.org/3/library/itertools.html
     """
-    # stepped_grouper('ABCDEFGHI', 3, 3) --> ADG BEH CFI"
 
     groups = tee(iterable, n)
 
-    for i, group in enumerate(groups):
-        for _ in range(i * step):
-            next(group, None)
+    # Advance each iterator by it's index times the step
+    groups = (islice(g, i * step, None) for i, g in enumerate(groups))
 
     return zip(*groups)
