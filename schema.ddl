@@ -1,10 +1,4 @@
 -- we don't know how to generate schema main (class Schema) :(
-create table Config
-(
-    biosce integer,
-    param  text,
-    value  text
-);
 
 create table Scenarios
 (
@@ -13,18 +7,30 @@ create table Scenarios
     notes  text
 );
 
+create table Config
+(
+    biosce integer not null
+        constraint Config_Scenarios_biosce_fk
+            references Scenarios (biosce)
+            on update cascade on delete cascade,
+    param  text,
+    value  text,
+    constraint Config_pk
+        primary key (biosce, param)
+);
+
 create table Nodes
 (
-	id integer not null,
-	x numeric not null,
-	y numeric not null,
-	hidx integer,
-	biosce integer not null
-		constraint Nodes_Scenarios_biosce_fk
-			references Scenarios (biosce)
-				on update cascade on delete cascade,
-	constraint Nodes_pk
-		primary key (id, biosce)
+    id     integer not null,
+    x      numeric not null,
+    y      numeric not null,
+    hidx   integer,
+    biosce integer not null
+        constraint Nodes_Scenarios_biosce_fk
+            references Scenarios (biosce)
+            on update cascade on delete cascade,
+    constraint Nodes_pk
+        primary key (id, biosce)
 );
 
 create table Populations
