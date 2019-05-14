@@ -16,7 +16,8 @@ class CoordsNodes(Importer):
             # strip whitespace from all lines and remove empty ones
             lines = tuple(filter(None, map(str.strip, file.readlines())))
 
-            assert len(lines) % 3 == 0, f"File {self.path} has illegal format"
+            if len(lines) % 3:
+                ValueError(f"File {self.path} has illegal format")
 
             entries = stepped_grouper(lines, 3, len(lines) // 3)
 
