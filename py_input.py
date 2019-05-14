@@ -57,12 +57,12 @@ class PyInput:
         os.chdir(self.__inputdir)
 
         config = Config()
-        config.setpath(self.__biosce_name)
+        config.setpath(biosce_name=self.__biosce_name)
         config.import_file(self.__dbobj)
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.listOfTables:
-            table.setpath(self.__biosce_name)
+            table.setpath(self.__biosce, self.__biosce_name)
             table.import_file(self.__dbobj)
 
 

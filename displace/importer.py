@@ -12,8 +12,10 @@ class Importer(ABC):
         self.__pathformat = path
         self.__path = path
 
-    def setpath(self, name=None):
-        self.__path = self.__pathformat.format(name)
+    def setpath(self, biosce=None, biosce_name=None):
+        assert biosce or biosce_name, "Must provide at least a parameter"
+
+        self.__path = self.__pathformat.format(biosce=biosce, biosce_name=biosce_name)
 
     @property
     def path(self):

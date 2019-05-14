@@ -6,7 +6,7 @@ from displace.importer import Importer
 
 class Hyperstability(Importer):
     def __init__(self):
-        super().__init__("popsspe_{}/hyperstability_param.dat")
+        super().__init__("popsspe_{biosce_name}/hyperstability_param.dat")
 
     def import_file(self, db):
         print("loading {}".format(os.path.abspath("popsspe/hyperstability_param.dat")))
