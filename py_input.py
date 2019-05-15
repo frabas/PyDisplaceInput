@@ -11,10 +11,11 @@ from displace.database import Database
 from displace.graphsspe.coordnodes import CoordNodes
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.hyperstability import Hyperstability
+from displace.popsspe.spebase import SpeBase
 
 
 class PyInput:
-    listOfTables = [Hyperstability(), CoordNodes(), GraphEdges()]
+    tables = Hyperstability(), CoordNodes(), GraphEdges(), SpeBase()
 
     def __init__(self):
         self.__verbose = False
@@ -63,7 +64,7 @@ class PyInput:
         config.import_file(self.__dbobj)
         self.__dbobj.create_populations(config.nbpops)
 
-        for table in self.listOfTables:
+        for table in self.tables:
             table.setpath(self.__biosce, self.__biosce_name)
             table.import_file(self.__dbobj)
 

@@ -50,6 +50,16 @@ class Database:
             c.execute(sql, [id, name, self.__biosce])
         self.__db.commit()
 
+    def find_all_populations_ids(self):
+        c = self.db.cursor()
+
+        sql = "SELECT id FROM Populations WHERE biosce={}".format(self.biosce)
+
+        c.execute(sql)
+
+        # noinspection PyShadowingBuiltins
+        return (id for id, in c.fetchall())
+
     def insert_population_parameter(self, popid, name, value):
         c = self.__db.cursor()
         sql = "INSERT INTO PopulationParameters VALUES(?,?,?,?)"
