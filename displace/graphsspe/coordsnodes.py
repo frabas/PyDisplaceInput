@@ -10,14 +10,14 @@ class CoordsNodes(Importer):
         super().__init__("graphsspe/coord{biosce}.dat")
 
     def import_file(self, db: Database):
-        print("loading {}".format(os.path.abspath("graphsspe/coord.dat")))
+        print("loading {}".format(os.path.abspath(self.path)))
 
         with open(self.path) as file:
             # strip whitespace from all lines and remove empty ones
             lines = tuple(filter(None, map(str.strip, file.readlines())))
 
             if len(lines) % 3:
-                ValueError(f"File {self.path} has illegal format")
+                ValueError("File {} has illegal format".format(self.path))
 
             entries = nwise(lines, 3, len(lines) // 3)
 

@@ -9,7 +9,7 @@ class Hyperstability(Importer):
         super().__init__("popsspe_{biosce_name}/hyperstability_param.dat")
 
     def import_file(self, db):
-        print("loading {}".format(os.path.abspath("popsspe/hyperstability_param.dat")))
+        print("loading {}".format(os.path.abspath(self.path)))
         with open(self.path) as file:
             reader = csv.DictReader(file, delimiter=' ')
             for row in reader:
