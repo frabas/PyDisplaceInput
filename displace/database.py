@@ -72,3 +72,14 @@ class Database:
             c.execute(sql, (id, *cols, self.biosce))
 
         self.db.commit()
+
+    def create_edges(self, edges):
+        c = self.db.cursor()
+
+        sql = "INSERT INTO Edges VALUES (?, ?, ?, ?, ?)"
+
+        # noinspection PyShadowingBuiltins
+        for id, cols in enumerate(edges):
+            c.execute(sql, (id, *cols, self.biosce))
+
+        self.db.commit()

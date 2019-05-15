@@ -33,6 +33,26 @@ create table Nodes
         primary key (id, biosce)
 );
 
+create table Edges
+(
+    id           integer not null,
+    from_node_id integer not null,
+    to_node_id   integer not null,
+    w            integer not null,
+    biosce       integer not null
+        constraint Edges_Scenarios_biosce_fk
+            references Scenarios (biosce)
+            on update cascade on delete cascade,
+    constraint Edges_pk
+        primary key (id, biosce),
+    foreign key (from_node_id, biosce) references Nodes
+        on update cascade on delete cascade,
+    foreign key (to_node_id, biosce) references Nodes
+        on update cascade on delete cascade
+);
+
+
+
 create table Populations
 (
     id     integer,
@@ -59,4 +79,3 @@ create table PopulationParameters
 
 create index PopulationParameters_parameter_index
     on PopulationParameters (parameter);
-
