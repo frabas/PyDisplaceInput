@@ -2,7 +2,7 @@ PRAGMA foreign_keys = ON;
 
 create table BioSce
 (
-	biosce int
+	biosce int not null
 		constraint BioSce_pk
 			primary key
 );
@@ -12,12 +12,12 @@ create table Config
 	param text not null
 		constraint Config_pk
 			primary key,
-	value text
+	value text not null
 );
 
 create table GraphSce
 (
-	graphsce int
+	graphsce int not null
 		constraint GraphSce_pk
 			primary key
 );
@@ -27,11 +27,10 @@ create table Nodes
 	id integer not null,
 	x numeric not null,
 	y numeric not null,
-	hidx integer,
+	hidx integer not null,
 	graphsce integer not null
-		constraint Nodes_GraphSce_biosce_fk
-			references GraphSce (biosce)
-				on update cascade on delete cascade,
+		references GraphSce
+			on update cascade on delete cascade,
 	constraint Nodes_pk
 		primary key (id, graphsce)
 );
@@ -44,18 +43,21 @@ create table Edges
 	from_node_id integer not null,
 	to_node_id integer not null,
 	w integer not null,
-	graphsce int,
+	graphsce int not null,
 	foreign key (from_node_id, graphsce) references Nodes
 		on update cascade on delete cascade,
 	foreign key (to_node_id, graphsce) references Nodes
 		on update cascade on delete cascade
 );
 
+create unique index Edges_id_uindex
+	on Edges (id);
+
 create table Populations
 (
-	id integer,
-	name TEXT,
-	biosce integer
+	id integer not null,
+	name TEXT not null,
+	biosce integer not null
 		references BioSce
 			on update cascade on delete cascade,
 	constraint pk_Populations
@@ -64,13 +66,13 @@ create table Populations
 
 create table PopulationParameters
 (
-	popId int,
+	pop_id int not null,
 	parameter TEXT not null,
-	value numeric,
-	biosce int,
+	value numeric not null,
+	biosce int not null,
 	constraint pk_PopulationParameters
-		primary key (popId, biosce, parameter),
-	foreign key (biosce, popId) references Populations
+		primary key (pop_id, biosce, parameter),
+	foreign key (biosce, pop_id) references Populations
 		on update cascade on delete cascade
 );
 
@@ -79,12 +81,15 @@ create index PopulationParameters_parameter_index
 
 create table Scenarios
 (
-	name text not null,
+	name text not null
+		constraint Scenarios_pk
+			primary key,
 	notes text,
 	biosce int not null
-		references BioSce,
+		references BioSce
+			on update cascade on delete cascade,
 	fleetsce int not null,
 	graphsce int not null
 		references GraphSce
+			on update cascade on delete cascade
 );
-
