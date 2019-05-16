@@ -56,7 +56,7 @@ create unique index Edges_id_uindex
 create table Populations
 (
 	id integer not null,
-	name TEXT not null,
+	name text not null,
 	biosce integer not null
 		references BioSce
 			on update cascade on delete cascade,

@@ -6,7 +6,7 @@ class Config(Importer):
              "calib_w_at_szgroup_stock", "calib_cpue_stock", "Interesting_harbours"]
 
     def __init__(self):
-        super().__init__("simusspe_{biosce_name}/config.dat")
+        super().__init__("simusspe_{name}/config.dat")
 
         self.__nbpops = None
         self.__nbbenthos = None

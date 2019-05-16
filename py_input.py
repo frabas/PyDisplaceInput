@@ -22,9 +22,9 @@ class PyInput:
         self.__inputdir = None
         self.__overwrite = False
         self.__db = None
-        self.__biosce = None
-        self.__biosce_name = None
-        self.__biosce_notes = None
+        self.__name = None
+        self.__scenario = None
+        self.__notes = None
         self.__dbobj = None
 
     def set_verbose(self, verbose):
@@ -37,10 +37,10 @@ class PyInput:
         self.__overwrite = overwrite
         self.__db = db
 
-    def set_scenario(self, scenario, scenario_name=None, scenario_notes=None):
-        self.__biosce = scenario
-        self.__biosce_name = scenario_name
-        self.__biosce_notes = scenario_notes
+    def set_scenario(self, name, notes, sce):
+        self.__name = name
+        self.__notes = notes
+        self.__scenario = sce
 
     def run(self):
         if self.__verbose:
@@ -53,33 +53,39 @@ class PyInput:
             if self.__verbose:
                 print("Removing output file {}".format(self.__db))
             os.remove(self.__db)
-        self.__dbobj = Database(file=self.__db, biosce=self.__biosce)
+        self.__dbobj = Database(file=self.__db)
         self.__dbobj.create_schema()
-        self.__dbobj.create_scenario(self.__biosce_name, self.__biosce_notes)
 
         os.chdir(self.__inputdir)
 
         config = Config()
-        config.setpath(biosce_name=self.__biosce_name)
+        config.setpath(name=self.__name)
         config.import_file(self.__dbobj)
+
+        # todo biosce, graphsce
+        self.__dbobj.create_biosce(-1)
+        self.__dbobj.create_graphsce(-1)
+
+        self.__dbobj.biosce = -1
+        self.__dbobj.create_scenario(self.__name, self.__notes, -1, -1) # todo fleetsce and graphsce
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.tables:
-            table.setpath(self.__biosce, self.__biosce_name)
+            table.setpath(-1, self.__name)
             table.import_file(self.__dbobj)
 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--biosce", "-b", type=int, required=True, help="Scenario number")
-    parser.add_argument("--biosce_name", help="Scenario name", default="")
-    parser.add_argument("--biosce_notes", help="Scenario notes", default="")
+    parser.add_argument("--name", "-n", required=True, help="Scenario name")
+    parser.add_argument("--notes", help="Scenario notes")
+    parser.add_argument("--sce", "-s", required=True, help="Scenario file name (ex: baseline)")
     parser.add_argument("--directory", "-d",
                         help="Location of the input files, default is the current working directory")
-    parser.add_argument("outfile",
-                        help="The name of the db file that will receive the result. If existing, it will be overwritten")
     parser.add_argument("--verbose", "-v", action="store_true", help="Make a verbose output on the console")
     parser.add_argument("--overwrite", "-o", action="store_true", help="Overwrite the output file if exists")
+    parser.add_argument("outfile",
+                        help="The name of the db file that will receive the result. If existing, it will be overwritten")
     args = parser.parse_args()
 
     program = PyInput()
@@ -91,7 +97,7 @@ if __name__ == "__main__":
     else:
         program.set_input(args.directory)
 
-    program.set_scenario(args.biosce, args.biosce_name, args.biosce_notes)
+    program.set_scenario(args.name, args.notes, args.sce)
     program.set_output(args.outfile, args.overwrite)
 
     program.run()

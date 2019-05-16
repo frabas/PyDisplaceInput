@@ -9,7 +9,7 @@ class SpeBase(Importer):
     PARAMETERS = 'fbar_min', 'fbar_max', 'ftarget', 'fpercent', 'TACpercent', 'Btrigger', 'FMSY'
 
     def __init__(self):
-        super(SpeBase, self).__init__("popsspe_{biosce_name}")
+        super(SpeBase, self).__init__("popsspe_{name}")
 
     def import_file(self, db):
         for popid in db.find_all_populations_ids():
