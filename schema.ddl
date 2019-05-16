@@ -1,8 +1,8 @@
--- we don't know how to generate schema main (class Schema) :(
+PRAGMA foreign_keys = ON;
 
 create table Scenarios
 (
-    biosce integer,
+    biosce integer PRIMARY KEY,
     name   text,
     notes  text
 );
