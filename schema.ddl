@@ -21,6 +21,12 @@ create table GraphSce
 		constraint GraphSce_pk
 			primary key
 );
+create table FleetSce
+(
+    fleetsce int not null
+        constraint FleetSce_pk
+            primary key
+);
 
 create table Nodes
 (

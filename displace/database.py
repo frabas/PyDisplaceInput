@@ -12,6 +12,8 @@ class Database:
         self.__verbose = verbose
 
         self.__biosce = None
+        self.__fleetsce = None
+        self.__graphsce = None
 
     @property
     def db(self):
@@ -25,6 +27,22 @@ class Database:
     def biosce(self, biosce):
         self.__biosce = biosce
 
+    @property
+    def fleetsce(self):
+        return self.__fleetsce
+
+    @fleetsce.setter
+    def fleetsce(self, fleetsce):
+        self.__fleetsce = fleetsce
+
+    @property
+    def graphsce(self):
+        return self.__graphsce
+
+    @graphsce.setter
+    def graphsce(self, graphsce):
+        self.__graphsce = graphsce
+
     def create_schema(self):
         if self.__verbose:
             print("Reading ddl from schema.ddl")
@@ -33,10 +51,15 @@ class Database:
             ddl = file.read()
         self.__db.executescript(ddl)
 
-    def create_scenario(self, name, notes, fleetsce, graphsce):
+    def create_scenario(self, name, notes):
+
+        self._create_biosce()
+        self._create_graphsce()
+        self._create_fleetsce()
+
         c = self.__db.cursor()
         sql = "INSERT INTO Scenarios VALUES (?, ?, ?, ?, ?)"
-        c.execute(sql, (name, notes, self.biosce, fleetsce, graphsce))
+        c.execute(sql, (name, notes, self.biosce, self.fleetsce, self.graphsce))
         self.__db.commit()
 
     def create_populations(self, nbpops, names=None):
@@ -101,18 +124,26 @@ class Database:
 
         self.db.commit()
 
-    def create_biosce(self, biosce):
+    def _create_biosce(self):
         c = self.db.cursor()
-        
+
         sql = "INSERT INTO BioSce VALUES (?)"
-        c.execute(sql, (biosce,))
-        
+        c.execute(sql, (self.biosce,))
+
         self.db.commit()
 
-    def create_graphsce(self, graphsce):
+    def _create_graphsce(self):
         c = self.db.cursor()
 
         sql = "INSERT INTO GraphSce VALUES (?)"
-        c.execute(sql, (graphsce,))
+        c.execute(sql, (self.graphsce,))
+
+        self.db.commit()
+
+    def _create_fleetsce(self):
+        c = self.db.cursor()
+
+        sql = "INSERT INTO FleetSce VALUES (?)"
+        c.execute(sql, (self.fleetsce,))
 
         self.db.commit()

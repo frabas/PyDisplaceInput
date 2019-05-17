@@ -12,6 +12,7 @@ from displace.graphsspe.coordnodes import CoordNodes
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.hyperstability import Hyperstability
 from displace.popsspe.spebase import SpeBase
+from displace.scenario import Scenario
 
 
 class PyInput:
@@ -62,16 +63,19 @@ class PyInput:
         config.setpath(name=self.__name)
         config.import_file(self.__dbobj)
 
-        # todo biosce, graphsce
-        self.__dbobj.create_biosce(-1)
-        self.__dbobj.create_graphsce(-1)
+        scenario = Scenario()
+        scenario.import_file(self.__dbobj)
 
-        self.__dbobj.biosce = -1
-        self.__dbobj.create_scenario(self.__name, self.__notes, -1, -1) # todo fleetsce and graphsce
+        self.__dbobj.biosce = scenario.biosce()
+        self.__dbobj.graphsce = scenario.graphsce()
+        self.__dbobj.fleetsce = scenario.fleetsce()
+
+        # todo biosce, graphsce
+        self.__dbobj.create_scenario(self.__name, self.__notes)  # todo fleetsce and graphsce
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.tables:
-            table.setpath(-1, self.__name)
+            table.setpath(scenario.biosce(), self.__name)
             table.import_file(self.__dbobj)
 
 
