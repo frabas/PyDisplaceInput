@@ -1,13 +1,21 @@
-from displace.importer import Importer
+from operator import itemgetter
+
+from displace.importer import HashFileImporter
 
 
-class Scenario(Importer):
+class Scenario(HashFileImporter):
+    params = (
+        2,  # biosce
+        3,  # fleetsce
+        6   # graphsce
+    )
+
     def __init__(self):
-        super().__init__("")
+        super(Scenario, self).__init__("simusspe_{name}/{scenario}.dat", self.__load)
 
-        self.__biosce = 0
-        self.__fleetsce = 0
-        self.__graphsce = 1
+        self.__biosce = None
+        self.__fleetsce = None
+        self.__graphsce = None
 
     @property
     def biosce(self):
@@ -21,5 +29,5 @@ class Scenario(Importer):
     def graphsce(self):
         return self.__graphsce
 
-    def import_file(self, db):
-        pass
+    def __load(self, _, lines):
+        self.__biosce, self.__fleetsce, self.__graphsce = itemgetter(*self.params)(lines)

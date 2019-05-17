@@ -15,10 +15,8 @@ class Importer(ABC):
         self.__pathformat = path
         self.__path = path
 
-    def setpath(self, biosce=None, name=None):
-        assert biosce or name, "Must provide at least a parameter"
-
-        self.__path = self.__pathformat.format(biosce=biosce, name=name)
+    def setpath(self, name, **kwargs):
+        self.__path = self.__pathformat.format(name=name, **kwargs)
 
     @property
     def path(self):
@@ -33,7 +31,7 @@ class Importer(ABC):
         pass
 
 
-class NSplitsFileImporter(Importer, ABC):
+class NSplitsFileImporter(Importer):
     def __init__(self, path, splits, op):
         super(NSplitsFileImporter, self).__init__(path)
 
@@ -55,3 +53,16 @@ class NSplitsFileImporter(Importer, ABC):
             entries = nwise(lines, self.__splits, div)
 
             self.__op(db, entries)
+
+
+class HashFileImporter(Importer):
+    def __init__(self, path, op):
+        super(HashFileImporter, self).__init__(path)
+
+        self.__op = op
+
+    def import_file(self, db):
+        print("loading {}".format(os.path.abspath(self.path)))
+
+        with open(self.path) as file:
+            self.__op(db, tuple(map(str.strip, file))[1::2])

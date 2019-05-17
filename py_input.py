@@ -60,10 +60,11 @@ class PyInput:
         os.chdir(self.__inputdir)
 
         config = Config()
-        config.setpath(name=self.__name)
+        config.setpath(self.__name)
         config.import_file(self.__dbobj)
 
         scenario = Scenario()
+        scenario.setpath(self.__name, scenario=self.__scenario)
         scenario.import_file(self.__dbobj)
 
         self.__dbobj.biosce = scenario.biosce
@@ -74,7 +75,7 @@ class PyInput:
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.tables:
-            table.setpath(scenario.biosce, self.__name)
+            table.setpath(self.__name, biosce=scenario.biosce)
             table.import_file(self.__dbobj)
 
 
