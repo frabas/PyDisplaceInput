@@ -11,37 +11,13 @@ class Database:
         self.__db = sqlite3.connect(file)
         self.__verbose = verbose
 
-        self.__biosce = None
-        self.__fleetsce = None
-        self.__graphsce = None
+        self.biosce = None
+        self.fleetsce = None
+        self.graphsce = None
 
     @property
     def db(self):
         return self.__db
-
-    @property
-    def biosce(self):
-        return self.__biosce
-
-    @biosce.setter
-    def biosce(self, biosce):
-        self.__biosce = biosce
-
-    @property
-    def fleetsce(self):
-        return self.__fleetsce
-
-    @fleetsce.setter
-    def fleetsce(self, fleetsce):
-        self.__fleetsce = fleetsce
-
-    @property
-    def graphsce(self):
-        return self.__graphsce
-
-    @graphsce.setter
-    def graphsce(self, graphsce):
-        self.__graphsce = graphsce
 
     def create_schema(self):
         if self.__verbose:
@@ -52,10 +28,9 @@ class Database:
         self.__db.executescript(ddl)
 
     def create_scenario(self, name, notes):
-
-        self._create_biosce()
-        self._create_graphsce()
-        self._create_fleetsce()
+        self.__create_biosce()
+        self.__create_graphsce()
+        self.__create_fleetsce()
 
         c = self.__db.cursor()
         sql = "INSERT INTO Scenarios VALUES (?, ?, ?, ?, ?)"
@@ -109,7 +84,7 @@ class Database:
 
         # noinspection PyShadowingBuiltins
         for id, cols in enumerate(nodes):
-            c.execute(sql, (id, *cols, self.biosce))
+            c.execute(sql, (id, *cols, self.graphsce))
 
         self.db.commit()
 
@@ -120,11 +95,11 @@ class Database:
 
         # noinspection PyShadowingBuiltins
         for id, cols in enumerate(edges):
-            c.execute(sql, (id, *cols, self.biosce))
+            c.execute(sql, (id, *cols, self.graphsce))
 
         self.db.commit()
 
-    def _create_biosce(self):
+    def __create_biosce(self):
         c = self.db.cursor()
 
         sql = "INSERT INTO BioSce VALUES (?)"
@@ -132,7 +107,7 @@ class Database:
 
         self.db.commit()
 
-    def _create_graphsce(self):
+    def __create_graphsce(self):
         c = self.db.cursor()
 
         sql = "INSERT INTO GraphSce VALUES (?)"
@@ -140,7 +115,7 @@ class Database:
 
         self.db.commit()
 
-    def _create_fleetsce(self):
+    def __create_fleetsce(self):
         c = self.db.cursor()
 
         sql = "INSERT INTO FleetSce VALUES (?)"

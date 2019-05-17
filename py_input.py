@@ -66,16 +66,15 @@ class PyInput:
         scenario = Scenario()
         scenario.import_file(self.__dbobj)
 
-        self.__dbobj.biosce = scenario.biosce()
-        self.__dbobj.graphsce = scenario.graphsce()
-        self.__dbobj.fleetsce = scenario.fleetsce()
+        self.__dbobj.biosce = scenario.biosce
+        self.__dbobj.graphsce = scenario.graphsce
+        self.__dbobj.fleetsce = scenario.fleetsce
 
-        # todo biosce, graphsce
-        self.__dbobj.create_scenario(self.__name, self.__notes)  # todo fleetsce and graphsce
+        self.__dbobj.create_scenario(self.__name, self.__notes)
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.tables:
-            table.setpath(scenario.biosce(), self.__name)
+            table.setpath(scenario.biosce, self.__name)
             table.import_file(self.__dbobj)
 
 
