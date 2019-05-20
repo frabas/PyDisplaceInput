@@ -11,7 +11,7 @@ class Hyperstability(Importer):
     def import_file(self, db):
         print("loading {}".format(os.path.abspath(self.path)))
         with open(self.path) as file:
-            reader = csv.DictReader(file, delimiter=" ")
-            for row in reader:
-                db.insert_population_parameter(row["stock"], "hyperstability_param",
-                                               row["hyperstability_param"])
+            rows = tuple(csv.reader(file, delimiter=" "))
+
+            for stock, hs_param in rows[1:]:
+                db.insert_population_parameter(stock, "hyperstability_param", hs_param)
