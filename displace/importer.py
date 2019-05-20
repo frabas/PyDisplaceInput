@@ -1,3 +1,4 @@
+import csv
 import os
 from abc import ABC, abstractmethod
 
@@ -53,7 +54,7 @@ class NSplitsFileImporter(Importer):
 
         Output:
 
-        (<a0>, <b0>, <c0>), (<a1>, <b1>, <c1>), (<a2>, <b2>, <c2>)
+        op(db, ((<a0>, <b0>, <c0>), (<a1>, <b1>, <c1>), (<a2>, <b2>, <c2>)))
 
     """
 
@@ -86,7 +87,7 @@ class NSplitsFileImporter(Importer):
 
 class HashFileImporter(Importer):
     """
-    Importer for files with parameters commented via hash comments:
+    Importer for files with parameters separated by hash comments:
 
     Example:
 
@@ -123,3 +124,44 @@ class HashFileImporter(Importer):
             parameters = tuple(lines)[1::2]
 
             self.__op(db, parameters)
+
+
+class PopulationParametersImporter(Importer, ABC):
+    """
+    Importer for files with named population parameters separated by space on a single row
+
+    Example:
+
+        File:
+
+        <param0> <param1> <param2> ...
+
+        Result:
+
+        Insertion in db of parameters with the provided names
+
+    """
+
+    FILENAME_FORMAT: str  # Name format of the file containing the parameters
+    PARAMETERS: str   # Positional names for the parameters
+
+    def __init__(self):
+        super(PopulationParametersImporter, self).__init__("popsspe_{name}")
+
+    def __init_subclass__(cls, **kwargs):
+        super(PopulationParametersImporter, cls).__init_subclass__()
+
+        assert cls.FILENAME_FORMAT and cls.PARAMETERS
+
+    def import_file(self, db):
+        for popid in db.find_all_populations_ids():
+            path = os.path.join(self.path, type(self).FILENAME_FORMAT.format(popid=popid))
+
+            print("loading {}".format(os.path.abspath(path)))
+
+            with open(path) as f:
+                # Keep just the first line (raise error if more)
+                values, = csv.reader(f, delimiter=" ")
+
+            for param, value in zip(type(self).PARAMETERS, values):
+                db.insert_population_parameter(popid, param, value)

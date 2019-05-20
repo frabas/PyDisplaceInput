@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 A tool to read, translate and fill the displace input data (txt files) into a SQLite file
 """
@@ -11,12 +11,13 @@ from displace.database import Database
 from displace.graphsspe.coordnodes import CoordNodes
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.hyperstability import Hyperstability
-from displace.popsspe.spebase import SpeBase
+from displace.popsspe.spe_base import SpeBase
+from displace.popsspe.spe_initial_tac import SpeInitialTac
 from displace.scenario import Scenario
 
 
 class PyInput:
-    tables = Hyperstability(), CoordNodes(), GraphEdges(), SpeBase()
+    tables = Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac()
 
     def __init__(self):
         self.__verbose = False
