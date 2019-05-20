@@ -29,5 +29,5 @@ class Scenario(HashFileImporter):
     def graphsce(self):
         return self.__graphsce
 
-    def __load(self, _, lines):
-        self.__biosce, self.__fleetsce, self.__graphsce = itemgetter(*self.params)(lines)
+    def __load(self, _, parameters):
+        self.__biosce, self.__fleetsce, self.__graphsce = itemgetter(*self.params)(parameters)

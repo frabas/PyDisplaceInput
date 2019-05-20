@@ -37,7 +37,8 @@ class Database:
         c.execute(sql, (name, notes, self.biosce, self.fleetsce, self.graphsce))
         self.__db.commit()
 
-    def create_populations(self, nbpops, names=None):
+    # noinspection PyDefaultArgument
+    def create_populations(self, nbpops, names=[]):
         """
         Fills the populations table, with optional names (a list of names)
         """
@@ -46,7 +47,7 @@ class Database:
 
         sql = "INSERT INTO Populations VALUES (?, ?, ?)"
 
-        for id, name in zip_longest(range(nbpops), names or [], fillvalue=""):
+        for id, name in zip_longest(range(nbpops), names, fillvalue=""):
             c.execute(sql, (id, name, self.biosce))
 
         self.__db.commit()
@@ -59,6 +60,7 @@ class Database:
         c.execute(sql)
 
         # noinspection PyShadowingBuiltins
+        # Unpack id from rows
         return (id for id, in c.fetchall())
 
     def insert_population_parameter(self, popid, name, value):

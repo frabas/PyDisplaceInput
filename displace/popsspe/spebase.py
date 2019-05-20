@@ -16,6 +16,7 @@ class SpeBase(Importer):
             path = os.path.join(self.path, SpeBase.FILENAME_FORMAT.format(popid))
 
             with open(path) as f:
+                # Keep just the first line (raise error if more)
                 values, = csv.reader(f, delimiter=" ")
 
             for param, value in zip(SpeBase.PARAMETERS, values):
