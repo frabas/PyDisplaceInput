@@ -14,9 +14,12 @@ class Importer(ABC):
         """
 
         self.__pathformat = path
+        self._path_params = {}
         self.__path = path
 
     def setpath(self, name, **kwargs):
+        self._path_params = kwargs
+
         self.__path = self.__pathformat.format(name=name, **kwargs)
 
     @property
@@ -142,11 +145,12 @@ class PopulationParametersImporter(Importer, ABC):
 
     """
 
-    FILENAME_FORMAT: str  # Name format of the file containing the parameters
+    FILENAME_FORMAT: str  # Name format of the file containing the parameters.
+                          # Put double braces around parameters set by import_file() instead of setpath()
     PARAMETERS: str   # Positional names for the parameters
 
     def __init__(self):
-        super(PopulationParametersImporter, self).__init__("popsspe_{name}")
+        super(PopulationParametersImporter, self).__init__(self.FILENAME_FORMAT)
 
     def __init_subclass__(cls, **kwargs):
         super(PopulationParametersImporter, cls).__init_subclass__()
@@ -155,7 +159,7 @@ class PopulationParametersImporter(Importer, ABC):
 
     def import_file(self, db):
         for popid in db.find_all_populations_ids():
-            path = os.path.join(self.path, type(self).FILENAME_FORMAT.format(popid=popid))
+            path = os.path.join(self.path.format(popid=popid, **self._path_params))
 
             print("loading {}".format(os.path.abspath(path)))
 
@@ -163,5 +167,5 @@ class PopulationParametersImporter(Importer, ABC):
                 # Keep just the first line (raise error if more)
                 values, = csv.reader(f, delimiter=" ")
 
-            for param, value in zip(type(self).PARAMETERS, values):
+            for param, value in zip(self.PARAMETERS, values):
                 db.insert_population_parameter(popid, param, value)
