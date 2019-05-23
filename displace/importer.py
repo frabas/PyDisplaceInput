@@ -164,8 +164,16 @@ class PopulationParametersImporter(Importer, ABC):
             print("loading {}".format(os.path.abspath(path)))
 
             with open(path) as f:
-                # Keep just the first line (raise error if more)
-                values, = csv.reader(f, delimiter=" ")
+                # noinspection PyShadowingBuiltins
+                all = first, *others = csv.reader(f)
+
+
+            if others:
+                values = (r for r, in all)  # # Keep just the first line (raise error if more)
+
+            else:
+                values = first
+
 
             for param, value in zip(self.PARAMETERS, values):
                 db.insert_population_parameter(popid, param, value)

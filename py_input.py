@@ -13,11 +13,12 @@ from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.hyperstability import Hyperstability
 from displace.popsspe.spe_base import SpeBase
 from displace.popsspe.spe_initial_tac import SpeInitialTac
+from displace.popsspe.spe_ssb_r import SsbR
 from displace.scenario import Scenario
 
 
 class PyInput:
-    tables = Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac()
+    tables = Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR()
 
     def __init__(self):
         self.__verbose = False
