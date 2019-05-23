@@ -11,14 +11,18 @@ from displace.database import Database
 from displace.graphsspe.coordnodes import CoordNodes
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.hyperstability import Hyperstability
+from displace.popsspe.percent_age import PercentAge
 from displace.popsspe.spe_base import SpeBase
 from displace.popsspe.spe_initial_tac import SpeInitialTac
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.scenario import Scenario
+from displace.popsspe.percent_szgroup import PercentSzGroup
 
 
 class PyInput:
-    tables = Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR()
+    tables = (
+        Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR(), PercentAge(), PercentSzGroup()
+    )
 
     def __init__(self):
         self.__verbose = False

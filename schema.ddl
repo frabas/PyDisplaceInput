@@ -82,6 +82,20 @@ create table PopulationParameters
 		on update cascade on delete cascade
 );
 
+create table PopulationParametersWithSizeGroupAndAge
+(
+	pop_id int not null,
+	parameter TEXT not null,
+	value numeric not null,
+	biosce int not null,
+	size_group int,
+	age int,
+	constraint pk_PopulationParameters
+		primary key (pop_id, biosce, parameter, size_group, age),
+	foreign key (biosce, pop_id) references Populations
+		on update cascade on delete cascade
+);
+
 create index PopulationParameters_parameter_index
 	on PopulationParameters (parameter);
 

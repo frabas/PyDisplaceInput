@@ -177,3 +177,27 @@ class PopulationParametersImporter(Importer, ABC):
 
             for param, value in zip(self.PARAMETERS, values):
                 db.insert_population_parameter(popid, param, value)
+
+
+class MatrixImporter(Importer, ABC):
+    """Importer for files with matrix like structure"""
+
+    FILENAME_FORMAT: str  # Name format of the file containing the parameters.
+                          # Put double braces around parameters set by import_file() instead of setpath()
+    PARAMETER_NAME: str  # Name of the parameter to import
+
+    def __init__(self):
+        super(MatrixImporter, self).__init__(self.FILENAME_FORMAT)
+
+    def import_file(self, db):
+        for popid in db.find_all_populations_ids():
+            path = self.path.format(popid=popid)
+
+            print("loading {}".format(os.path.abspath(path)))
+
+            with open(path) as f:
+                for szgroup, vals in enumerate(csv.reader(f, delimiter=" ")):
+                    for age, value in enumerate(vals):
+                        db.insert_population_parameter_with_szgroup_and_age(
+                            popid, self.PARAMETER_NAME, value, szgroup, age
+                        )
