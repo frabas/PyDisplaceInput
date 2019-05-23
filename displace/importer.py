@@ -159,7 +159,7 @@ class PopulationParametersImporter(Importer, ABC):
 
     def import_file(self, db):
         for popid in db.find_all_populations_ids():
-            path = self.path.format(popid=popid, **self._path_params)
+            path = self.path.format(popid=popid)
 
             print("loading {}".format(os.path.abspath(path)))
 
