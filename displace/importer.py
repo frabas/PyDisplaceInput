@@ -165,7 +165,7 @@ class PopulationParametersImporter(Importer, ABC):
 
             with open(path) as f:
                 # noinspection PyShadowingBuiltins
-                all = first, *others = csv.reader(f)
+                all = first, *others = tuple(csv.reader(f))
 
 
             if others:
