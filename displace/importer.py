@@ -179,15 +179,15 @@ class PopulationParametersImporter(Importer, ABC):
                 db.insert_population_parameter(popid, param, value)
 
 
-class MatrixImporter(Importer, ABC):
-    """Importer for files with matrix like structure"""
+class SizeAgeMatrixImporter(Importer, ABC):
+    """Importer for files with matrix like structure, indexed by size group and age group"""
 
     FILENAME_FORMAT: str  # Name format of the file containing the parameters.
                           # Put double braces around parameters set by import_file() instead of setpath()
     PARAMETER_NAME: str  # Name of the parameter to import
 
     def __init__(self):
-        super(MatrixImporter, self).__init__(self.FILENAME_FORMAT)
+        super(SizeAgeMatrixImporter, self).__init__(self.FILENAME_FORMAT)
 
     def import_file(self, db):
         for popid in db.find_all_populations_ids():
