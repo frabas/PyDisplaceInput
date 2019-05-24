@@ -196,3 +196,33 @@ class SizeAgeMatrixImporter(Importer, ABC):
                         db.insert_population_parameter_with_szgroup_and_age(
                             popid, self.__parameter_name, value, szgroup, age
                         )
+
+
+class PopulationParametersWithSizeGroupImporter(Importer, ABC):
+    """
+    Importer for files with a header, pop_id on first column and parameter value on second column
+    """
+
+    def __init__(self, path, parameter_name):
+        super(PopulationParametersWithSizeGroupImporter, self).__init__(path)
+
+        self.__parameter_name = parameter_name
+
+    def import_file(self, db):
+        print("loading {}".format(os.path.abspath(self.path)))
+
+        with open(self.path) as file:
+            rows = tuple(csv.reader(file, delimiter=" "))
+
+        prev_pop_id = None
+        size_group = 0
+
+        for popid, param in rows[1:]:
+            if popid != prev_pop_id:
+                prev_pop_id = popid
+                size_group = 0
+
+            else:
+                size_group += 1
+
+            db.insert_population_parameter_with_szgroup_and_age(popid, self.__parameter_name, param, size_group)
