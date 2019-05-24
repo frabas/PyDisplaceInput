@@ -6,13 +6,11 @@ from displace.utils import nwise
 
 
 class Importer(ABC):
-    """An abstract class to import files into db"""
+    """
+    An abstract class to import files into db
+    """
 
     def __init__(self, path):
-        """
-        The main constructor, no parameters.
-        """
-
         self.__pathformat = path
         self._path_params = {}
         self.__path = path
@@ -129,9 +127,9 @@ class HashFileImporter(Importer):
             self.__op(db, parameters)
 
 
-class PopulationParametersImporter(Importer, ABC):
+class SingleRowPopulationParametersImporter(Importer, ABC):
     """
-    Importer for files with named population parameters separated by space on a single row
+    Importer for files with named population parameters separated by space on a single row or column
 
     Example:
 
@@ -145,17 +143,14 @@ class PopulationParametersImporter(Importer, ABC):
 
     """
 
-    FILENAME_FORMAT: str  # Name format of the file containing the parameters.
-                          # Put double braces around parameters set by import_file() instead of setpath()
-    PARAMETERS: str   # Positional names for the parameters
+    def __init__(self, path, parameters):
+        """
+        :param parameters: Positional names for the parameters
+        """
 
-    def __init__(self):
-        super(PopulationParametersImporter, self).__init__(self.FILENAME_FORMAT)
+        super(SingleRowPopulationParametersImporter, self).__init__(path)
 
-    def __init_subclass__(cls, **kwargs):
-        super(PopulationParametersImporter, cls).__init_subclass__()
-
-        assert cls.FILENAME_FORMAT and cls.PARAMETERS
+        self.__parameters = parameters
 
     def import_file(self, db):
         for popid in db.find_all_populations_ids():
@@ -168,26 +163,26 @@ class PopulationParametersImporter(Importer, ABC):
                 all = first, *others = tuple(csv.reader(f))
 
 
-            if others:
-                values = (r for r, in all)  # # Keep just the first line (raise error if more)
+            if others:  # If values are in one column instead of one line
+                values = (r for r, in all)  # Keep just the first line (raise error if more)
 
             else:
                 values = first
 
 
-            for param, value in zip(self.PARAMETERS, values):
+            for param, value in zip(self.__parameters, values):
                 db.insert_population_parameter(popid, param, value)
 
 
 class SizeAgeMatrixImporter(Importer, ABC):
-    """Importer for files with matrix like structure, indexed by size group and age group"""
+    """
+    Importer for files with matrix like structure, indexed by size group and age group
+    """
 
-    FILENAME_FORMAT: str  # Name format of the file containing the parameters.
-                          # Put double braces around parameters set by import_file() instead of setpath()
-    PARAMETER_NAME: str  # Name of the parameter to import
+    def __init__(self, path, parameter_name):
+        super(SizeAgeMatrixImporter, self).__init__(path)
 
-    def __init__(self):
-        super(SizeAgeMatrixImporter, self).__init__(self.FILENAME_FORMAT)
+        self.__parameter_name = parameter_name
 
     def import_file(self, db):
         for popid in db.find_all_populations_ids():
@@ -199,5 +194,5 @@ class SizeAgeMatrixImporter(Importer, ABC):
                 for szgroup, vals in enumerate(csv.reader(f, delimiter=" ")):
                     for age, value in enumerate(vals):
                         db.insert_population_parameter_with_szgroup_and_age(
-                            popid, self.PARAMETER_NAME, value, szgroup, age
+                            popid, self.__parameter_name, value, szgroup, age
                         )
