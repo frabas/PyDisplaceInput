@@ -10,8 +10,14 @@ from displace.config import Config
 from displace.database import Database
 from displace.graphsspe.coordnodes import CoordNodes
 from displace.graphsspe.graphedges import GraphEdges
+from displace.popsspe.comcat import Comcat
 from displace.popsspe.hyperstability import Hyperstability
+from displace.popsspe.init_fecondity import InitFecondity
 from displace.popsspe.init_m import InitM
+from displace.popsspe.init_maturity import InitMaturity
+from displace.popsspe.init_pops import InitPops
+from displace.popsspe.init_prop_migrants_pops import InitPropMigrantsPops
+from displace.popsspe.init_proprecru import InitProprecru
 from displace.popsspe.init_weight import InitWeight
 from displace.popsspe.percent_age import PercentAge
 from displace.popsspe.percent_szgroup import PercentSzGroup
@@ -24,7 +30,8 @@ from displace.scenario import Scenario
 class PyInput:
     tables = (
         Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR(), PercentAge(),
-        PercentSzGroup(), InitWeight(), InitM()
+        PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
+        InitProprecru(), InitPropMigrantsPops()
     )
 
     def __init__(self):
