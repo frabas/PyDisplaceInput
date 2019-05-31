@@ -73,11 +73,13 @@ create table Populations
 create table PopulationParameters
 (
 	pop_id int not null,
-	parameter TEXT not null,
+	parameter text not null,
 	value numeric not null,
 	biosce int not null,
+	period text,
+	country text,
 	constraint pk_PopulationParameters
-		primary key (pop_id, biosce, parameter),
+		primary key (pop_id, biosce, parameter, period, country),
 	foreign key (biosce, pop_id) references Populations
 		on update cascade on delete cascade
 );
@@ -85,7 +87,7 @@ create table PopulationParameters
 create table PopulationParametersWithSizeGroupAndAge
 (
 	pop_id int not null,
-	parameter TEXT not null,
+	parameter text not null,
 	value numeric not null,
 	biosce int not null,
 	size_group int,

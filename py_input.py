@@ -23,6 +23,8 @@ from displace.popsspe.percent_age import PercentAge
 from displace.popsspe.percent_szgroup import PercentSzGroup
 from displace.popsspe.spe_base import SpeBase
 from displace.popsspe.spe_initial_tac import SpeInitialTac
+from displace.popsspe.spe_relative_stability import SpeRelativeStability
+from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.scenario import Scenario
 
@@ -31,7 +33,7 @@ class PyInput:
     tables = (
         Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR(), PercentAge(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
-        InitProprecru(), InitPropMigrantsPops()
+        InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability()
     )
 
     def __init__(self):

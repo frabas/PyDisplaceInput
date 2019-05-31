@@ -63,11 +63,11 @@ class Database:
         # Unpack id from rows
         return (id for id, in c.fetchall())
 
-    def insert_population_parameter(self, popid, name, value):
+    def insert_population_parameter(self, popid, name, value, period=None, country=None):
         c = self.__db.cursor()
 
-        sql = "INSERT INTO PopulationParameters VALUES (?, ?, ?, ?)"
-        c.execute(sql, (popid, name, value, self.biosce))
+        sql = "INSERT INTO PopulationParameters VALUES (?, ?, ?, ?, ?, ?)"
+        c.execute(sql, (popid, name, value, self.biosce, period, country))
 
         self.__db.commit()
 
