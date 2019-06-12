@@ -27,13 +27,14 @@ from displace.popsspe.spe_relative_stability import SpeRelativeStability
 from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.scenario import Scenario
-
+from displace.popsspe.avai_beta_semester import AvaiBetaSemester
 
 class PyInput:
     tables = (
+        AvaiBetaSemester(),
         Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR(), PercentAge(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
-        InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability()
+        InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
     )
 
     def __init__(self):
@@ -45,6 +46,7 @@ class PyInput:
         self.__scenario = None
         self.__notes = None
         self.__dbobj = None
+        self.__this_path = os.path.dirname(__file__)
 
     def set_verbose(self, verbose):
         self.__verbose = verbose
@@ -63,6 +65,7 @@ class PyInput:
 
     def run(self):
         if self.__verbose:
+            print("Running from: {}".format(os.getcwd()))
             print("Parsing {} directory, output db to: {}".format(self.__inputdir, self.__db))
         if os.path.exists(self.__db):
             # Todo: since many scenario can be added to the same db, overwrite should not work this way. Ok for now.
@@ -73,7 +76,7 @@ class PyInput:
                 print("Removing output file {}".format(self.__db))
             os.remove(self.__db)
         self.__dbobj = Database(file=self.__db)
-        self.__dbobj.create_schema()
+        self.__dbobj.create_schema(self.__this_path)
 
         os.chdir(self.__inputdir)
 

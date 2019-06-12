@@ -92,6 +92,7 @@ create table PopulationParametersWithSizeGroupAndAge
 	biosce int not null,
 	size_group int,
 	age int,
+	period text,
 	constraint pk_PopulationParameters
 		primary key (pop_id, biosce, parameter, size_group, age),
 	foreign key (biosce, pop_id) references Populations

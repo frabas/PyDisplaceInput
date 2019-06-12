@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from itertools import zip_longest
 
 
@@ -19,11 +20,12 @@ class Database:
     def db(self):
         return self.__db
 
-    def create_schema(self):
+    def create_schema(self, mainpath):
         if self.__verbose:
             print("Reading ddl from schema.ddl")
 
-        with open("schema.ddl", mode="r") as file:
+        schemafile = os.path.join(mainpath, "schema.ddl")
+        with open(schemafile, mode="r") as file:
             ddl = file.read()
         self.__db.executescript(ddl)
 
@@ -71,11 +73,11 @@ class Database:
 
         self.__db.commit()
 
-    def insert_population_parameter_with_szgroup_and_age(self, popid, name, value, szgroup=None, age=None):
+    def insert_population_parameter_with_szgroup_and_age(self, popid, name, value, szgroup=None, age=None, period=None):
         c = self.__db.cursor()
 
-        sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?)"
-        c.execute(sql, (popid, name, value, self.biosce, szgroup, age))
+        sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?)"
+        c.execute(sql, (popid, name, value, self.biosce, szgroup, age, period))
 
         self.__db.commit()
 
