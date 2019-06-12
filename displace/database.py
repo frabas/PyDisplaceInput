@@ -73,11 +73,11 @@ class Database:
 
         self.__db.commit()
 
-    def insert_population_parameter_with_szgroup_and_age(self, popid, name, value, szgroup=None, age=None, period=None):
+    def insert_population_parameter_with_szgroup_and_age(self, popid, name, value, szgroup=None, age=None, period=None, node=None):
         c = self.__db.cursor()
 
-        sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?)"
-        c.execute(sql, (popid, name, value, self.biosce, szgroup, age, period))
+        sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        c.execute(sql, (popid, name, value, self.biosce, szgroup, age, period, node))
 
         self.__db.commit()
 

@@ -26,15 +26,16 @@ from displace.popsspe.spe_initial_tac import SpeInitialTac
 from displace.popsspe.spe_relative_stability import SpeRelativeStability
 from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
+from displace.popsspe.static_avai import StaticAvaiFull
 from displace.scenario import Scenario
 from displace.popsspe.avai_beta_semester import AvaiBetaSemester
 
 class PyInput:
     tables = (
-        AvaiBetaSemester(),
         Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR(), PercentAge(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
+        AvaiBetaSemester(), StaticAvaiFull(),
     )
 
     def __init__(self):

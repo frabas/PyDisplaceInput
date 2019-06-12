@@ -93,6 +93,7 @@ create table PopulationParametersWithSizeGroupAndAge
 	size_group int,
 	age int,
 	period text,
+	node int,
 	constraint pk_PopulationParameters
 		primary key (pop_id, biosce, parameter, size_group, age),
 	foreign key (biosce, pop_id) references Populations
@@ -101,6 +102,9 @@ create table PopulationParametersWithSizeGroupAndAge
 
 create index PopulationParameters_parameter_index
 	on PopulationParameters (parameter);
+
+create index PopulationParametersWithSizeGroupAndAge_ByNode_index
+    on PopulationParametersWithSizeGroupAndAge(pop_id, size_group, age, node);
 
 create table Scenarios
 (
