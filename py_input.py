@@ -100,6 +100,9 @@ class PyInput:
             table.setpath(self.__name, biosce=scenario.biosce)
             table.import_file(self.__dbobj)
 
+    def input(self):
+        return self.__inputdir
+
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -123,7 +126,13 @@ if __name__ == "__main__":
     else:
         program.set_input(args.directory)
 
+    outputpath = os.path.split(args.outfile)
+    if not outputpath[0]:
+        destpath=program.input()
+    else:
+        destpath=outputpath[0]
+
     program.set_scenario(args.name, args.notes, args.sce)
-    program.set_output(args.outfile, args.overwrite)
+    program.set_output(os.path.join(destpath, outputpath[1]), args.overwrite)
 
     program.run()
