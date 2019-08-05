@@ -108,13 +108,13 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--name", "-n", required=True, help="Scenario name")
     parser.add_argument("--notes", help="Scenario notes")
-    parser.add_argument("--sce", "-s", required=True, help="Scenario file name (ex: baseline)")
     parser.add_argument("--directory", "-d",
                         help="Location of the input files, default is the current working directory")
     parser.add_argument("--verbose", "-v", action="store_true", help="Make a verbose output on the console")
-    parser.add_argument("--overwrite", "-o", action="store_true", help="Overwrite the output file if exists")
-    parser.add_argument("outfile",
+    parser.add_argument("--overwrite", "-w", action="store_true", help="Overwrite the output file if exists")
+    parser.add_argument("--outfile", "-o",
                         help="The name of the db file that will receive the result. If existing, it will be overwritten")
+    parser.add_argument("sce", help="Scenario name, it will be also the name of the db file if no --outfile is specified (ex: baseline)")
     args = parser.parse_args()
 
     program = PyInput()
@@ -126,7 +126,12 @@ if __name__ == "__main__":
     else:
         program.set_input(args.directory)
 
-    outputpath = os.path.split(args.outfile)
+    if args.outfile is None:
+        outfile = args.sce + ".db"
+    else:
+        outfile = args.outfile
+
+    outputpath = os.path.split(outfile)
     if not outputpath[0]:
         destpath=program.input()
     else:

@@ -1,8 +1,29 @@
 # PyDisplaceInput
 
-For example, run in a command shell with:
-python3 py_input.py --name fake -sce baseline -d 'C:\Users\fbas\Documents\GitHub\DISPLACE_input_m
-initest' --overwrite test.db
+Usage: 
 
-What works so far for fba (31 May 19):
-C:\Users\fbas\Documents\GitHub\PyDisplaceInput>python py_input.py --name fake --sce baseline -d C:\Users\fbas\Documents\GitHub\DISPLACE_input_minitest -v -o test.db
+Run the script from a command prompt, specifying at least
+the scenario name, the name and the input directory if it is not the
+current:
+
+```
+PyDisplaceInput --verbose --overwrite --name fake \
+    --directory DISPLACE_input_minitest/ \
+    baseline
+
+```
+
+`--verbose` shows some info while running
+
+`--overwrite` overwrites the output file if it is already present
+
+`--directory` selects the input directory, where the model resides
+
+`baseline` is the name of the scenario. 
+
+Since the `--outfile` or `-o` option is not set, the output file will
+reside in the `directory` path and will be named `baseline.db`.
+
+You can specify an alternative output name: `-o outfile.db`.
+
+Use the `--help` option to show the usage.
