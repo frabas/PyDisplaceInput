@@ -3,7 +3,8 @@ from displace.importer import HashFileImporter
 
 class Config(HashFileImporter):
     params = ("nbpops", "nbbenthospops", "implicit_stocks", "calib_landings_stock",
-             "calib_w_at_szgroup_stock", "calib_cpue_stock", "Interesting_harbours")
+              "calib_w_at_szgroup_stock", "calib_cpue_stock", "Interesting_harbours",
+              "implicit_pops_level2", "grouped_tacs", "nbcp_coupling_pops")
 
     def __init__(self):
         super(Config, self).__init__("simusspe_{name}/config.dat", self.__load)
