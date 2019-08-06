@@ -29,9 +29,12 @@ from displace.popsspe.spe_ssb_r import SsbR
 from displace.popsspe.static_avai import StaticAvaiFull
 from displace.scenario import Scenario
 from displace.popsspe.avai_beta_semester import AvaiBetaSemester
+from displace.scenarioconfig import ScenarioConfig
+
 
 class PyInput:
     tables = (
+        ScenarioConfig(),
         Hyperstability(), CoordNodes(), GraphEdges(), SpeBase(), SpeInitialTac(), SsbR(), PercentAge(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
@@ -93,11 +96,11 @@ class PyInput:
         self.__dbobj.graphsce = scenario.graphsce
         self.__dbobj.fleetsce = scenario.fleetsce
 
-        self.__dbobj.create_scenario(self.__name, self.__notes)
+        self.__dbobj.create_scenario(self.__scenario, self.__notes)
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.tables:
-            table.setpath(self.__name, biosce=scenario.biosce)
+            table.setpath(self.__name, biosce=scenario.biosce, scenario=self.__scenario)
             table.import_file(self.__dbobj)
 
     def input(self):

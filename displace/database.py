@@ -33,6 +33,7 @@ class Database:
         self.__create_biosce()
         self.__create_graphsce()
         self.__create_fleetsce()
+        self.__current_scenario = name
 
         c = self.__db.cursor()
         sql = "INSERT INTO Scenarios VALUES (?, ?, ?, ?, ?)"
@@ -86,6 +87,14 @@ class Database:
 
         sql = "INSERT INTO Config VALUES (?, ?)"
         c.execute(sql, (parameter, value))
+
+        self.__db.commit()
+
+    def insert_scenario_config_entry(self, parameter, value):
+        c = self.__db.cursor()
+
+        sql = "INSERT INTO ScenarioConfig VALUES (?, ?, ?)"
+        c.execute(sql, (self.__current_scenario, parameter, value))
 
         self.__db.commit()
 
