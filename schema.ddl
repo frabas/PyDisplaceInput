@@ -15,16 +15,17 @@ create table Config
 	value text not null
 );
 
-create table GraphSce
-(
-	graphsce int not null
-		constraint GraphSce_pk
-			primary key
-);
 create table FleetSce
 (
     fleetsce int not null
         constraint FleetSce_pk
+            primary key
+);
+
+create table GraphSce
+(
+    graphsce int not null
+        constraint GraphSce_pk
             primary key
 );
 
@@ -84,6 +85,9 @@ create table PopulationParameters
 		on update cascade on delete cascade
 );
 
+create index PopulationParameters_parameter_index
+    on PopulationParameters (parameter);
+
 create table PopulationParametersWithSizeGroupAndAge
 (
 	pop_id int not null,
@@ -100,11 +104,8 @@ create table PopulationParametersWithSizeGroupAndAge
 		on update cascade on delete cascade
 );
 
-create index PopulationParameters_parameter_index
-	on PopulationParameters (parameter);
-
 create index PopulationParametersWithSizeGroupAndAge_ByNode_index
-    on PopulationParametersWithSizeGroupAndAge(pop_id, size_group, age, node);
+    on PopulationParametersWithSizeGroupAndAge (pop_id, size_group, age, node);
 
 create table Scenarios
 (
@@ -120,3 +121,16 @@ create table Scenarios
 		references GraphSce
 			on update cascade on delete cascade
 );
+
+create table ScenarioConfig
+(
+    sce   TEXT
+        references Scenarios
+            on update cascade on delete cascade,
+    param TEXT not null,
+    value TEXT
+);
+
+create unique index ScenarioConfig_sce_param_uindex
+    on ScenarioConfig (sce, param);
+
