@@ -101,7 +101,7 @@ class Database:
     def create_nodes(self, nodes):
         c = self.db.cursor()
 
-        sql = "INSERT INTO Nodes VALUES (?, ?, ?, ?, ?)"
+        sql = "INSERT INTO Nodes(id,x,y,hidx,graphsce) VALUES (?, ?, ?, ?, ?)"
 
         # noinspection PyShadowingBuiltins
         for id, cols in enumerate(nodes):
@@ -141,5 +141,15 @@ class Database:
 
         sql = "INSERT INTO FleetSce VALUES (?)"
         c.execute(sql, (self.fleetsce,))
+
+        self.db.commit()
+
+    def set_param_in_table(self, table, field, fieldId, fieldSce, values):
+        c = self.db.cursor()
+
+        sql = "UPDATE {0} SET {1} = ? WHERE {2} = ? AND {3} = ?".format(table, field, fieldId, fieldSce)
+
+        for value, id, sce in values:
+            c.execute(sql, (value, id, sce))
 
         self.db.commit()

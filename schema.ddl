@@ -31,14 +31,15 @@ create table GraphSce
 
 create table Nodes
 (
-	id integer not null,
-	x numeric not null,
-	y numeric not null,
-	hidx integer not null,
-	graphsce integer not null
+    id        integer not null,
+    x         numeric not null,
+    y         numeric not null,
+    hidx      integer not null,
+    code_area integer,
+    graphsce  integer not null
 		references GraphSce
 			on update cascade on delete cascade,
-	constraint Nodes_pk
+    constraint Nodes_pk
 		primary key (id, graphsce)
 );
 
