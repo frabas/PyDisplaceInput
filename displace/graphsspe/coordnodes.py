@@ -15,3 +15,13 @@ class NodesCodeArea(NSplitsFileImporter):
         lines = [x[2] for x in linesIt]
         values = list(zip(lines, range(0, len(lines)), [db.graphsce] * len(lines)))
         db.set_param_in_table("Nodes", "code_area", "id", "graphsce", values)
+
+
+class NodesMarineLandscape(NSplitsFileImporter):
+    def __init__(self):
+        super().__init__("graphsspe/coord{graphsce}_with_landscape.dat", 1, self._import)
+
+    def _import(self, db, linesIt):
+        lines = [x[0] for x in linesIt]
+        values = list(zip(lines, range(0, len(lines)), [db.graphsce] * len(lines)))
+        db.set_param_in_table("Nodes", "landscape", "id", "graphsce", values)

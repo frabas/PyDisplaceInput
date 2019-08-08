@@ -36,6 +36,7 @@ create table Nodes
     y         numeric not null,
     hidx      integer not null,
     code_area integer,
+    landscape integer,
     graphsce  integer not null
 		references GraphSce
 			on update cascade on delete cascade,

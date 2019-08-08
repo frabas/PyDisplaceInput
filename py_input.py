@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 
 from displace.config import Config
 from displace.database import Database
-from displace.graphsspe.coordnodes import CoordNodes, NodesCodeArea
+from displace.graphsspe.coordnodes import CoordNodes, NodesCodeArea, NodesMarineLandscape
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.comcat import Comcat
 from displace.popsspe.hyperstability import Hyperstability
@@ -35,7 +35,7 @@ from displace.scenarioconfig import ScenarioConfig
 class PyInput:
     tables = (
         ScenarioConfig(),
-        CoordNodes(), NodesCodeArea(),
+        CoordNodes(), NodesCodeArea(), NodesMarineLandscape(),
         GraphEdges(),
         SpeBase(), SpeInitialTac(), SsbR(), PercentAge(), Hyperstability(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
@@ -102,7 +102,7 @@ class PyInput:
         self.__dbobj.create_populations(config.nbpops)
 
         for table in self.tables:
-            table.setpath(self.__name, biosce=scenario.biosce, scenario=self.__scenario)
+            table.setpath(self.__name, graphsce=scenario.graphsce, biosce=scenario.biosce, scenario=self.__scenario)
             table.import_file(self.__dbobj)
 
     def input(self):
