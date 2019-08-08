@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 
 from displace.config import Config
 from displace.database import Database
-from displace.graphsspe.coordnodes import CoordNodes, NodesCodeArea, NodesMarineLandscape
+from displace.graphsspe.coordnodes import *
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.comcat import Comcat
 from displace.popsspe.hyperstability import Hyperstability
@@ -35,7 +35,10 @@ from displace.scenarioconfig import ScenarioConfig
 class PyInput:
     tables = (
         ScenarioConfig(),
-        CoordNodes(), NodesCodeArea(), NodesMarineLandscape(),
+        CoordNodes(), NodesCodeArea(), NodesMarineLandscape(), NodesWind(),
+        NodesSalinity(), NodesSST(), NodesNitrogen(), NodesPhosphorus(),
+        NodesOxygen(), NodesCarbon(), NodesBathymetry(), NodesShipping(),
+        NodesSilt(), NodesBenthosBio(), NodesBenthosNum(),
         GraphEdges(),
         SpeBase(), SpeInitialTac(), SsbR(), PercentAge(), Hyperstability(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
