@@ -52,6 +52,9 @@ class StaticAvaiFull(Importer):
 
         for file in files:
             m = self.__re.match(file)
+            if m is None:
+                print("Skipping file: {}".format(file))
+                continue
 
             popid = m.group(1)
             semester = m.group(2)
