@@ -12,6 +12,10 @@ PyDisplaceInput --verbose --overwrite --name fake \
     baseline
 
 ```
+For example:
+```
+py_input.py --name fake --directory C:\Users\fbas\Documents\GitHub\DISPLACE_input_minitest baseline
+```
 
 `--verbose` shows some info while running
 
