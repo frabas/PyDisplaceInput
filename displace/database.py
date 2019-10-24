@@ -82,6 +82,20 @@ class Database:
 
         self.__db.commit()
 
+    def insert_vessel(self, vessel_name):
+        c = self.__db.cursor()
+        sql = "INSERT INTO VesselsSpe(VesselName, fleetsce) " \
+              "VALUES (?, ?)"
+        c.execute(sql, (vessel_name, self.fleetsce))
+        self.__db.commit()
+
+    def insert_vessel_parameter(self, vessel_name, parameter_name, opt1, opt2, period, value):
+        c = self.__db.cursor()
+        sql = "INSERT INTO VesselsParameters(VesselName, Parameter, Opt1, Opt2, Period, Value) " \
+              "VALUES (?, ?, ?, ?, ?, ?)"
+        c.execute(sql, (vessel_name, parameter_name, opt1, opt2, period, value))
+        self.__db.commit()
+
     def insert_config_entry(self, parameter, value):
         c = self.__db.cursor()
 

@@ -30,6 +30,8 @@ from displace.popsspe.static_avai import StaticAvaiFull
 from displace.scenario import Scenario
 from displace.popsspe.avai_beta_semester import AvaiBetaSemester
 from displace.scenarioconfig import ScenarioConfig
+from displace.vesselsspe.vesselfeatures import VesselFeatures
+from displace.vesselsspe.vesselharbours import VesselHarbours
 
 
 class PyInput:
@@ -44,6 +46,8 @@ class PyInput:
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(),
+        VesselFeatures(),
+        VesselHarbours(),
     )
 
     def __init__(self):
