@@ -17,6 +17,8 @@ class StaticAvaiFull(Importer):
     def import_file(self, db):
         files = glob.glob(self.path)
 
+        db.prepare_insert_population_parameter_with_szgroup_and_age()
+
         for file in files:
             m = self.__re.match(file)
 
@@ -37,6 +39,8 @@ class StaticAvaiFull(Importer):
                 size_group += 1
                 oldnode_id = nodeid
 
+        db.commit_insert_population_parameter_with_szgroup_and_age()
+
 
 
 class StaticAvaiFull(Importer):
@@ -49,6 +53,8 @@ class StaticAvaiFull(Importer):
 
     def import_file(self, db):
         files = glob.glob(self.path)
+
+        db.prepare_insert_population_parameter_with_szgroup_and_age()
 
         for file in files:
             m = self.__re.match(file)
@@ -72,3 +78,5 @@ class StaticAvaiFull(Importer):
                                                                     period=semester, node=nodeid)
                 size_group += 1
                 oldnode_id = nodeid
+
+        db.commit_insert_population_parameter_with_szgroup_and_age()

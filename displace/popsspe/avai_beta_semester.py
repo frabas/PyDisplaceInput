@@ -17,6 +17,7 @@ class AvaiBetaSemester(Importer):
     def import_file(self, db):
         files = glob.glob(self.path)
 
+        db.prepare_insert_population_parameter_with_szgroup_and_age()
         for file in files:
             m = self.__re.match(file)
 
@@ -29,3 +30,5 @@ class AvaiBetaSemester(Importer):
 
             for popid, value in rows[1:]:
                 db.insert_population_parameter_with_szgroup_and_age(popid, "beta", value, szgroup=size_group, period=semester)
+
+        db.commit_insert_population_parameter_with_szgroup_and_age()

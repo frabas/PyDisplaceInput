@@ -74,13 +74,17 @@ class Database:
 
         self.__db.commit()
 
+    def prepare_insert_population_parameter_with_szgroup_and_age(self):
+        self.sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        self.cur = self.__db.cursor()
+
     def insert_population_parameter_with_szgroup_and_age(self, popid, name, value, szgroup=None, age=None, period=None, node=None):
-        c = self.__db.cursor()
+        self.cur.execute(self.sql, (popid, name, value, self.biosce, szgroup, age, period, node))
 
-        sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-        c.execute(sql, (popid, name, value, self.biosce, szgroup, age, period, node))
-
+    def commit_insert_population_parameter_with_szgroup_and_age(self):
         self.__db.commit()
+        self.sql = None
+        self.cur = None
 
     def insert_vessel(self, vessel_name):
         c = self.__db.cursor()

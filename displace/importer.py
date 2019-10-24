@@ -185,6 +185,8 @@ class SizeAgeMatrixImporter(Importer, ABC):
         self.__parameter_name = parameter_name
 
     def import_file(self, db):
+        db.prepare_insert_population_parameter_with_szgroup_and_age()
+
         for popid in db.find_all_populations_ids():
             path = self.path.format(popid=popid)
 
@@ -196,6 +198,8 @@ class SizeAgeMatrixImporter(Importer, ABC):
                         db.insert_population_parameter_with_szgroup_and_age(
                             popid, self.__parameter_name, value, szgroup, age
                         )
+
+        db.commit_insert_population_parameter_with_szgroup_and_age()
 
 
 class PopulationParametersWithSizeGroupImporter(Importer, ABC):
@@ -217,6 +221,7 @@ class PopulationParametersWithSizeGroupImporter(Importer, ABC):
         prev_pop_id = None
         size_group = 0
 
+        db.prepare_insert_population_parameter_with_szgroup_and_age()
         for popid, param in rows[1:]:
             if popid != prev_pop_id:
                 prev_pop_id = popid
@@ -226,3 +231,5 @@ class PopulationParametersWithSizeGroupImporter(Importer, ABC):
                 size_group += 1
 
             db.insert_population_parameter_with_szgroup_and_age(popid, self.__parameter_name, param, size_group)
+
+        db.commit_insert_population_parameter_with_szgroup_and_age()
