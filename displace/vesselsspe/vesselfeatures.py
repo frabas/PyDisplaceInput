@@ -3,6 +3,7 @@ import os
 
 from displace.importer import Importer
 
+from ..db.VesselsTable import VesselsTable
 
 class VesselFeatures(Importer):
     def __init__(self):
@@ -14,8 +15,16 @@ class VesselFeatures(Importer):
         with open(self.path) as file:
             rows = tuple(csv.reader(file, delimiter="|"))
 
+        db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
+                       VesselsTable.FIELD_PARAM,
+                       VesselsTable.FIELD_OPT1,
+                       VesselsTable.FIELD_VALUE
+                       ))
+
         for row in rows:
             vessel_name = row[0]
             db.insert_vessel(vessel_name)
             for i,feature in enumerate(row[1:]):
-                db.insert_vessel_parameter(vessel_name, "feature", opt1=i+1, opt2=None, period=None, value=feature)
+                db.execute(vessel_name, "feature", i+1, feature)
+
+        db.commit()
