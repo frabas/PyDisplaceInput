@@ -20,6 +20,18 @@ class Database:
     def db(self):
         return self.__db
 
+    def prepare_sql(self, sqlStatement):
+        self.sql = sqlStatement
+        self.cur = self.__db.cursor()
+
+    def execute(self, *params):
+        self.cur.execute(self.sql, params)
+
+    def commit(self):
+        self.__db.commit()
+        self.sql = None
+        self.cur = None
+
     def create_schema(self, mainpath):
         if self.__verbose:
             print("Reading ddl from schema.ddl")
@@ -75,16 +87,13 @@ class Database:
         self.__db.commit()
 
     def prepare_insert_population_parameter_with_szgroup_and_age(self):
-        self.sql = "INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-        self.cur = self.__db.cursor()
+        self.prepare_sql("INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
 
     def insert_population_parameter_with_szgroup_and_age(self, popid, name, value, szgroup=None, age=None, period=None, node=None):
         self.cur.execute(self.sql, (popid, name, value, self.biosce, szgroup, age, period, node))
 
     def commit_insert_population_parameter_with_szgroup_and_age(self):
-        self.__db.commit()
-        self.sql = None
-        self.cur = None
+        self.commit()
 
     def insert_vessel(self, vessel_name):
         c = self.__db.cursor()
