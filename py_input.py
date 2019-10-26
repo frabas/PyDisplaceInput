@@ -30,7 +30,7 @@ from displace.popsspe.static_avai import StaticAvaiFull
 from displace.scenario import Scenario
 from displace.scenarioconfig import ScenarioConfig
 from displace.vesselsspe.freq_harbours import VesselFreqHarbours
-from displace.vesselsspe.vesselfeatures import VesselFeatures, VesselEconomicFeatures
+from displace.vesselsspe.vesselfeatures import VesselFeatures, VesselEconomicFeatures, VesselFishGrounds
 from displace.vesselsspe.vesselharbours import VesselHarbours
 
 
@@ -46,7 +46,7 @@ class PyInput:
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(),
-        VesselEconomicFeatures(), VesselFeatures(),
+        VesselEconomicFeatures(), VesselFeatures(), VesselFishGrounds(),
         VesselHarbours(), VesselFreqHarbours()
     )
 

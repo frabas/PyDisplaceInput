@@ -54,3 +54,37 @@ class VesselEconomicFeatures(VesselFeaturesImporter):
 
     def import_file(self, db):
         self.do_import(db)
+
+
+class VesselFishGrounds(Importer):
+    def __init__(self):
+        super().__init__("vesselsspe_{name}")
+
+    def import_file(self, db):
+
+        db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
+                                                   VesselsTable.FIELD_PARAM,
+                                                   VesselsTable.FIELD_OPT1,
+                                                   VesselsTable.FIELD_VALUE,
+                                                   VesselsTable.FIELD_PERIOD
+                                                   ))
+
+        for quarter in 1, 2, 3, 4:
+            fground_path = "{}/vesselsspe_fgrounds_quarter{}.dat".format(self.path, quarter)
+            fg_freq_path = "{}/vesselsspe_freq_fgrounds_quarter{}.dat".format(self.path, quarter)
+
+            print("Loading: {}".format(os.path.abspath(fground_path)))
+            with open(fground_path) as file:
+                fg_rows = tuple(csv.reader(file, delimiter=" "))
+
+            print("Loading: {}".format(os.path.abspath(fg_freq_path)))
+            with open(fg_freq_path) as file:
+                fgf_rows = tuple(csv.reader(file, delimiter=" "))
+
+            for row in zip(fg_rows[1:], fgf_rows[1:]):
+                vessel_name = row[0][0]
+                fgv = row[0][1]
+                ffv = row[1][1]
+                db.execute(vessel_name, "fgroundFreq", fgv, ffv, quarter)
+
+        db.commit()
