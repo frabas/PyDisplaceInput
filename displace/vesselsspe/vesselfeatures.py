@@ -90,10 +90,7 @@ class VesselFishGrounds(Importer):
         db.commit()
 
 
-class VesselsPercentTacs(Importer):
-    def __init__(self):
-        super().__init__("vesselsspe_{name}/vesselsspe_percent_tacs_per_pop_semester{{semester}}.dat")
-
+class VesselsPercentTacsImporter(Importer):
     def import_file(self, db):
         db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
                                                    VesselsTable.FIELD_PARAM,
@@ -119,8 +116,20 @@ class VesselsPercentTacs(Importer):
                 if lastname != vessel_name:
                     curpop = 0
 
-                db.execute(vessel_name, "percentTac", curpop, row[1], semester)
+                db.execute(vessel_name, self.param, curpop, row[1], semester)
                 curpop = curpop + 1
                 lastname = vessel_name
 
         db.commit()
+
+
+class VesselsPercentTacs(VesselsPercentTacsImporter):
+    def __init__(self):
+        self.param = "percentTac"
+        super().__init__("vesselsspe_{name}/vesselsspe_percent_tacs_per_pop_semester{{semester}}.dat")
+
+
+class VesselsBetas(VesselsPercentTacsImporter):
+    def __init__(self):
+        self.param = "vesselBeta"
+        super().__init__("vesselsspe_{name}/vesselsspe_betas_semester{{semester}}.dat")
