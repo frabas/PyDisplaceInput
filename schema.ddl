@@ -166,6 +166,6 @@ create table VesselsParameters
 	Period numeric,
 	Value numeric not null,
 	constraint VesselsParameters_pk
-		primary key (VesselName, Parameter, Opt1, Opt2)
+        primary key (VesselName, Parameter, Opt1, Opt2, Period)
 );
 
