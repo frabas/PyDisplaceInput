@@ -2,7 +2,7 @@ import csv
 import os
 
 from displace.importer import Importer
-from ..db.VesselsTable import VesselsTable
+from ..db.vessels_table import VesselsTable
 
 
 class VesselFreqHarbours(Importer):

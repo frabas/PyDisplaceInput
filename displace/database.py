@@ -1,5 +1,5 @@
-import sqlite3
 import os
+import sqlite3
 from itertools import zip_longest
 
 
@@ -25,7 +25,11 @@ class Database:
         self.cur = self.__db.cursor()
 
     def execute(self, *params):
-        self.cur.execute(self.sql, params)
+        try:
+            self.cur.execute(self.sql, params)
+        except sqlite3.IntegrityError as x:
+            print("On executing {} with Params {}:".format(self.sql, params))
+            raise
 
     def commit(self):
         self.__db.commit()

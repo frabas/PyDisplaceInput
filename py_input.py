@@ -7,9 +7,9 @@ import os
 from argparse import ArgumentParser
 
 from displace.config import Config
-from displace.database import Database
 from displace.graphsspe.coordnodes import *
 from displace.graphsspe.graphedges import GraphEdges
+from displace.popsspe.avai_beta_semester import AvaiBetaSemester
 from displace.popsspe.comcat import Comcat
 from displace.popsspe.hyperstability import Hyperstability
 from displace.popsspe.init_fecondity import InitFecondity
@@ -28,11 +28,10 @@ from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.popsspe.static_avai import StaticAvaiFull
 from displace.scenario import Scenario
-from displace.popsspe.avai_beta_semester import AvaiBetaSemester
 from displace.scenarioconfig import ScenarioConfig
-from displace.vesselsspe.vesselfeatures import VesselFeatures
-from displace.vesselsspe.vesselharbours import VesselHarbours
 from displace.vesselsspe.freq_harbours import VesselFreqHarbours
+from displace.vesselsspe.vesselfeatures import VesselFeatures, VesselEconomicFeatures
+from displace.vesselsspe.vesselharbours import VesselHarbours
 
 
 class PyInput:
@@ -47,7 +46,7 @@ class PyInput:
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(),
-        VesselFeatures(),
+        VesselEconomicFeatures(), VesselFeatures(),
         VesselHarbours(), VesselFreqHarbours()
     )
 
