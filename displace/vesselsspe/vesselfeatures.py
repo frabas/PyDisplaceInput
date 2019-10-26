@@ -90,6 +90,26 @@ class VesselFishGrounds(Importer):
         db.commit()
 
 
+class VesselInitialCredit(VesselFeaturesImporter):
+    def __init__(self):
+        super().__init__("vesselsspe_{name}/initial_share_fishing_credits_per_vid.dat")
+
+    def import_file(self, db):
+        db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
+                                                   VesselsTable.FIELD_PARAM,
+                                                   VesselsTable.FIELD_VALUE
+                                                   ))
+
+        with open(self.path) as file:
+            rows = tuple(csv.reader(file, delimiter=" "))
+
+        for row in rows[1:]:
+            if len(row) < 2:
+                continue
+            db.execute(row[0], "CreditShare", row[1])
+        db.commit()
+
+
 class VesselsPercentTacsImporter(Importer):
     def import_file(self, db):
         db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,

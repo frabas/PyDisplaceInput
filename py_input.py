@@ -45,7 +45,8 @@ class PyInput:
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(),
-        VesselEconomicFeatures(), VesselFeatures(), VesselFishGrounds(), VesselsPercentTacs(), VesselsBetas(),
+        VesselEconomicFeatures(), VesselInitialCredit(),
+        VesselFeatures(), VesselFishGrounds(), VesselsPercentTacs(), VesselsBetas(),
         VesselHarbours(), VesselFreqHarbours()
     )
 
