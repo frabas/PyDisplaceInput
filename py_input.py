@@ -31,6 +31,7 @@ from displace.scenarioconfig import ScenarioConfig
 from displace.vesselsspe.freq_harbours import VesselFreqHarbours
 from displace.vesselsspe.vesselfeatures import *
 from displace.vesselsspe.vesselharbours import VesselHarbours
+from displace.vesselsspe.vesselscharacters import VesselPossibleMetier
 
 
 class PyInput:
@@ -47,7 +48,8 @@ class PyInput:
         AvaiBetaSemester(), StaticAvaiFull(),
         VesselEconomicFeatures(), VesselInitialCredit(),
         VesselFeatures(), VesselFishGrounds(), VesselsPercentTacs(), VesselsBetas(),
-        VesselHarbours(), VesselFreqHarbours()
+        VesselHarbours(), VesselFreqHarbours(),
+        VesselPossibleMetier()
     )
 
     def __init__(self):
