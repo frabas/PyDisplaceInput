@@ -88,3 +88,39 @@ class VesselFishGrounds(Importer):
                 db.execute(vessel_name, "fgroundFreq", fgv, ffv, quarter)
 
         db.commit()
+
+
+class VesselsPercentTacs(Importer):
+    def __init__(self):
+        super().__init__("vesselsspe_{name}/vesselsspe_percent_tacs_per_pop_semester{{semester}}.dat")
+
+    def import_file(self, db):
+        db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
+                                                   VesselsTable.FIELD_PARAM,
+                                                   VesselsTable.FIELD_OPT1,
+                                                   VesselsTable.FIELD_VALUE,
+                                                   VesselsTable.FIELD_PERIOD
+                                                   ))
+
+        for semester in 1, 2:
+            path = self.path.format(semester=semester)
+
+            print("Loading: {}".format(os.path.abspath(path)))
+            with open(path) as file:
+                rows = tuple(csv.reader(file, delimiter=" "))
+
+            lastname = ""
+            curpop = 0
+            for row in rows[1:]:
+                if len(row) < 2:
+                    continue
+
+                vessel_name = row[0]
+                if lastname != vessel_name:
+                    curpop = 0
+
+                db.execute(vessel_name, "percentTac", curpop, row[1], semester)
+                curpop = curpop + 1
+                lastname = vessel_name
+
+        db.commit()

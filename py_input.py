@@ -3,7 +3,6 @@
 A tool to read, translate and fill the displace input data (txt files) into a SQLite file
 """
 
-import os
 from argparse import ArgumentParser
 
 from displace.config import Config
@@ -30,7 +29,7 @@ from displace.popsspe.static_avai import StaticAvaiFull
 from displace.scenario import Scenario
 from displace.scenarioconfig import ScenarioConfig
 from displace.vesselsspe.freq_harbours import VesselFreqHarbours
-from displace.vesselsspe.vesselfeatures import VesselFeatures, VesselEconomicFeatures, VesselFishGrounds
+from displace.vesselsspe.vesselfeatures import *
 from displace.vesselsspe.vesselharbours import VesselHarbours
 
 
@@ -46,7 +45,7 @@ class PyInput:
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(),
-        VesselEconomicFeatures(), VesselFeatures(), VesselFishGrounds(),
+        VesselEconomicFeatures(), VesselFeatures(), VesselFishGrounds(), VesselsPercentTacs(),
         VesselHarbours(), VesselFreqHarbours()
     )
 
