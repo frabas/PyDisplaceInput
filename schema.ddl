@@ -157,15 +157,13 @@ create table VesselsSpe
 
 create table VesselsParameters
 (
-	VesselName TEXT not null
-		references VesselsSpe
-			on update cascade on delete cascade,
-	Parameter text not null,
-	Opt1 numeric,
-	Opt2 numeric,
-	Period numeric,
-	Value numeric not null,
-	constraint VesselsParameters_pk
+    VesselName TEXT    not null,
+    Parameter  text    not null,
+    Opt1       numeric,
+    Opt2       numeric,
+    Period     numeric,
+    Value      numeric not null,
+    constraint VesselsParameters_pk
         primary key (VesselName, Parameter, Opt1, Opt2, Period)
 );
 
