@@ -2,17 +2,24 @@ import csv
 import glob
 import os
 import re
+from abc import abstractmethod
 
 from displace.db.vessels_table import VesselsTable
 from displace.importer import Importer
 
 
-class VesselPossibleMetier(Importer):
-    def __init__(self):
-        super().__init__("vesselsspe_{name}/*_possible_metiers_quarter*.dat")
-        self.__re = re.compile("([A-Za-z0-9]+)_possible_metiers_quarter([0-9]).dat")
+class VesselCharacterImporter(Importer):
+    @abstractmethod
+    def checkMatch(self, path):
+        """
+        Checks if the path must be processed by the importer. Must return a TRUE and dic with the matching values
+        in particular, "name" and "period"
+        :param path: path of file being processed
+        :return: a tuple of bool (TRUE or FALSE) and a dict with the extracted values
+        """
+        pass
 
-    def import_file(self, db):
+    def do_import_file(self, db, keyword):
         files = glob.glob(self.path)
 
         db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
@@ -22,18 +29,34 @@ class VesselPossibleMetier(Importer):
                                                    VesselsTable.FIELD_VALUE
                                                    ))
         for file in files:
-            m = self.__re.match(os.path.basename(file))
-            if m is None:
+            match, vars = self.checkMatch(file)
+            if not match:
                 continue
-
-            vessel_name = m.group(1)
-            quarter = m.group(2)
 
             print("loading {}".format(os.path.abspath(file)))
             with open(file) as f:
                 rows = tuple(csv.reader(f, delimiter=" "))
 
-            for fground, metier in rows[1:]:
-                db.execute(vessel_name, "PossibleMetier", fground, quarter, metier)
+            for opt1, value in rows[1:]:
+                db.execute(vars['name'], keyword, opt1, vars['period'], value)
 
         db.commit()
+
+
+class VesselPossibleMetier(VesselCharacterImporter):
+    def __init__(self):
+        super().__init__("vesselsspe_{name}/*_possible_metiers_quarter*.dat")
+        self.__re = re.compile("([A-Za-z0-9]+)_possible_metiers_quarter([0-9]).dat")
+
+    def checkMatch(self, path):
+        m = self.__re.match(os.path.basename(path))
+        if m is None:
+            return False, None
+
+        vessel_name = m.group(1)
+        quarter = m.group(2)
+
+        return True, {'period': quarter, 'name': vessel_name}
+
+    def import_file(self, db):
+        return self.do_import_file(db, "PossibleMetier")
