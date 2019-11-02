@@ -167,3 +167,8 @@ create table VesselsParameters
         primary key (VesselName, Parameter, Opt1, Opt2, Period)
 );
 
+create index VesselsParameters_NameParameterPeriod_index
+    on VesselsParameters (VesselName, Parameter, Period);
+
+create index VesselsParameters_NameParameter_index
+    on VesselsParameters (VesselName, Parameter);
