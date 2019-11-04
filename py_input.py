@@ -54,7 +54,7 @@ class PyInput:
         VesselPossibleMetier(), VesselFreqPossibleMetier(), VesselShapeCpueOnNodes(),
         VesselScaleCpueOnNodes(), VesselCpueOnNodes(),
         VesselPrices(),
-        ClosuresMetier()
+        ClosuresMetier(), ClosuresVSize()
     )
 
     def __init__(self):

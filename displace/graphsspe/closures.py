@@ -5,10 +5,10 @@ from displace.db.closures_table import ClosuresTable
 from displace.importer import Importer
 
 
-class ClosuresMetier(Importer):
-
-    def __init__(self):
-        super().__init__("graphsspe/metier_closure_a_graph{{sce}}_month{{month}}.dat")
+class ClosuresImporter(Importer):
+    def __init__(self, path, keyword):
+        super().__init__(path)
+        self.keyword = keyword
 
     def import_file(self, db):
         db.prepare_sql(ClosuresTable.prepare_insert(ClosuresTable.FIELD_CLOSURESCE,
@@ -42,8 +42,18 @@ class ClosuresMetier(Importer):
             for row in rows:
                 if len(row) < 3:
                     continue
-                db.execute(closure, row[0], row[2], month, "metier",
-                           row[1], " ".join(rows[3:])
+                db.execute(closure, row[0], row[2], month, self.keyword,
+                           row[1], " ".join(row[3:])
                            )
 
         db.commit()
+
+
+class ClosuresMetier(ClosuresImporter):
+    def __init__(self):
+        super().__init__("graphsspe/metier_closure_a_graph{{sce}}_month{{month}}.dat", "metier")
+
+
+class ClosuresVSize(ClosuresImporter):
+    def __init__(self):
+        super().__init__("graphsspe/vsize_closure_a_graph{{sce}}_month{{month}}.dat", "vsize")
