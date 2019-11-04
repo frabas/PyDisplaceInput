@@ -7,6 +7,15 @@ create table BioSce
 			primary key
 );
 
+create table ClosuresSpe
+(
+    ClosureSce NUMERIC not null,
+    ClosureId  NUMERIC not null,
+    NodeId     NUMERIC not null,
+    Type       TEXT,
+    Closures   TEXT
+);
+
 create table Config
 (
 	param text not null
@@ -145,16 +154,6 @@ create table ScenarioConfig
 	value TEXT
 );
 
-create table VesselsSpe
-(
-	fleetsce int not null
-		references FleetSce
-			on update cascade on delete cascade,
-	VesselName TEXT
-		constraint VesselsSpe_pk
-			primary key
-);
-
 create table VesselsParameters
 (
     VesselName TEXT    not null,
@@ -172,3 +171,14 @@ create index VesselsParameters_NameParameterPeriod_index
 
 create index VesselsParameters_NameParameter_index
     on VesselsParameters (VesselName, Parameter);
+
+create table VesselsSpe
+(
+    fleetsce   int not null
+        references FleetSce
+            on update cascade on delete cascade,
+    VesselName TEXT
+        constraint VesselsSpe_pk
+            primary key
+);
+
