@@ -13,6 +13,8 @@ create table ClosuresSpe
     ClosureId  NUMERIC not null,
     NodeId     NUMERIC not null,
     Type       TEXT,
+    Period     NUMERIC not null,
+    Opt        NUMERIC,
     Closures   TEXT
 );
 

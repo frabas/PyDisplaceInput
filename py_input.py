@@ -6,6 +6,7 @@ A tool to read, translate and fill the displace input data (txt files) into a SQ
 from argparse import ArgumentParser
 
 from displace.config import Config
+from displace.graphsspe.closures import *
 from displace.graphsspe.coordnodes import *
 from displace.graphsspe.graphedges import GraphEdges
 from displace.popsspe.avai_beta_semester import AvaiBetaSemester
@@ -52,7 +53,8 @@ class PyInput:
         VesselHarbours(), VesselFreqHarbours(),
         VesselPossibleMetier(), VesselFreqPossibleMetier(), VesselShapeCpueOnNodes(),
         VesselScaleCpueOnNodes(), VesselCpueOnNodes(),
-        VesselPrices()
+        VesselPrices(),
+        ClosuresMetier()
     )
 
     def __init__(self):

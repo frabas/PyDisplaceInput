@@ -129,6 +129,16 @@ class Database:
 
         self.__db.commit()
 
+    def get_scenario_config_entry(self, parameter):
+        c = self.__db.cursor()
+
+        sql = "SELECT value FROM ScenarioConfig WHERE sce=? AND param=?"
+        c.execute(sql, (self.__current_scenario, parameter))
+        row = c.fetchall()
+        if len(row) > 0:
+            return row[0]
+        return ""
+    
     def create_nodes(self, nodes):
         c = self.db.cursor()
 
