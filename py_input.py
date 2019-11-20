@@ -39,6 +39,8 @@ from displace.shipsspe.shipfeatures import *
 from displace.shipsspe.shipparameters import ShipLanesLat
 from displace.shipsspe.shipparameters import ShipLanesLon
 from displace.firmsspe.firmfeatures import *
+from displace.harboursspe.harbourfeatures import *
+from displace.harboursspe.harbourfishprice import HarbourFishPrice
 
 
 class PyInput:
@@ -62,7 +64,9 @@ class PyInput:
         ClosuresMetier(), ClosuresVSize(),
         FishfarmFeatures(),
         ShipFeatures(), ShipLanesLat(), ShipLanesLon(),
-        FirmFeatures()
+        FirmFeatures(),
+        HarbourFeatures() #, HarbourFishPrice()
+
     )
 
     def __init__(self):

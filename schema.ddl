@@ -132,6 +132,49 @@ create table PopulationParametersWithSizeGroupAndAge
 create index PopulationParametersWithSizeGroupAndAge_ByNode_index
 	on PopulationParametersWithSizeGroupAndAge (pop_id, size_group, age, node);
 
+create table Harbours
+(
+	id integer not null,
+	name text not null,
+	graphsce integer not null
+		references GraphSce
+			on update cascade on delete cascade,
+	constraint pk_Harbours
+		primary key (graphsce, id)
+);
+
+create table HarboursParameters
+(
+   HarbourName TEXT    not null,
+    Parameter  text    not null,
+    graphsce int not null,
+	  Opt1       numeric,
+    Opt2       numeric,
+    Period     numeric,
+    Value      numeric not null,
+    constraint HarboursParameters_pk
+        primary key (HarbourName, Parameter, Opt1, Opt2, Period)
+ );
+
+create table HarbourParametersWithSpeciesAndMarketCat
+(
+	node_id int not null,
+	parameter text not null,
+	value numeric not null,
+	graphsce int not null,
+	marketcat int,
+	period text,
+	species int,
+	constraint pk_Harbours
+		primary key (node_id),
+	foreign key (graphsce, node_id) references Nodes
+		on update cascade on delete cascade
+);
+
+create index HarbourParametersWithSpeciesAndMarketCat_ByPop_index
+	on HarbourParametersWithSpeciesAndMarketCat(node_id, marketcat, species);
+
+
 create table Scenarios
 (
 	name text not null
@@ -241,3 +284,12 @@ create table VesselsSpe
             primary key
 );
 
+create table HarboursSpe
+(
+    graphsce   int not null
+        references GraphSce
+            on update cascade on delete cascade,
+    HarbourName TEXT
+        constraint HarboursSpe_pk
+            primary key
+);
