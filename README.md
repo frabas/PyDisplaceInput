@@ -7,14 +7,18 @@ the scenario name, the name and the input directory if it is not the
 current:
 
 ```
-py_input.py --verbose --overwrite --name fake \
+py_input --verbose --overwrite --name fake \
     --directory DISPLACE_input_minitest/ \
     baseline
 
 ```
 For example:
 ```
-py_input.py --name fake --directory C:\Users\fbas\Documents\GitHub\DISPLACE_input_minitest baseline
+.\py_input.py --overwrite --name fake --directory C:\Users\fbas\Documents\GitHub\DISPLACE_input_minitest baseline
+```
+or, for another scenario:
+```
+.\py_input.py --overwrite --name fake --directory C:\Users\fbas\Documents\GitHub\DISPLACE_input_minitest areaclosure
 ```
 
 `--verbose` shows some info while running
