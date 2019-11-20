@@ -100,10 +100,10 @@ class Database:
         self.commit()
 
     def prepare_insert_harbour_parameter_with_species_and_marketcat(self):
-        self.prepare_sql("INSERT INTO HarbourParametersWithSpeciesAndMarketCat VALUES (?, ?, ?, ?, ?, ?, ?)")
+        self.prepare_sql("INSERT INTO HarbourParametersWithSpeciesAndMarketCat VALUES (?, ?, ?, ?, ?, ?)")
 
-    def insert_harbour_parameter_with_species_and_marketcat(self, nodeid, name, value, marketcat=None, period=None, species=None):
-        self.cur.execute(self.sql, (nodeid, name, value, self.biosce, marketcat,  period, species))
+    def insert_harbour_parameter_with_species_and_marketcat(self, nodeid, parameter, value, marketcat=None, period=None, species=None):
+        self.cur.execute(self.sql, (nodeid, parameter, value, marketcat,  period, species))
 
     def commit_harbour_parameter_with_species_and_marketcat(self):
         self.commit()
@@ -115,11 +115,11 @@ class Database:
         c.execute(sql, (node_id, harbour_name, self.graphsce))
         self.__db.commit()
 
-    def insert_harbour_parameter(self, harbour_name, node_id, parameter_name, opt1, opt2, period, value):
+    def insert_harbour_parameter(self, node_id, parameter_name, opt1, opt2, period, value):
         c = self.__db.cursor()
-        sql = "INSERT INTO HarboursParameters(HarbourName, NodeId, Parameter, Opt1, Opt2, Period, Value) " \
-              "VALUES (?, ?, ?, ?, ?, ?, ?)"
-        c.execute(sql, (harbour_name, parameter_name, opt1, opt2, period, value))
+        sql = "INSERT INTO HarboursParameters(NodeId, Parameter, Opt1, Opt2, Period, Value) " \
+              "VALUES (?, ?, ?, ?, ?, ?)"
+        c.execute(sql, (node_id, parameter_name, opt1, opt2, period, value))
         self.__db.commit()
 
     def insert_vessel(self, vessel_name):

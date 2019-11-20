@@ -12,7 +12,7 @@ class HarbourFishPrice(Importer):
             "harboursspe_{name}/*_quarter*_each_species_per_cat.dat"
         )
 
-        self.__re = re.compile(".*([0-9])_quarter([0-9])_each_species_per_cat.dat")
+        self.__re = re.compile(".*([0-99])_quarter([0-9])_each_species_per_cat.dat")
 
     def import_file(self, db):
         files = glob.glob(self.path)
@@ -37,12 +37,12 @@ class HarbourFishPrice(Importer):
             for popid, value in rows[1:]:
                 if (oldpop_id != popid):
                     market_cat = 0
-                db.insert_harbour_parameter_with_species_and_marketcat(nodeid, "fish_price", value, marketcat=market_cat,
+                db.insert_harbour_parameter_with_species_and_marketcat(nodeid,"fishPrice",value, marketcat=market_cat,
                                                                     period=quarter, species=popid)
                 market_cat += 1
                 oldpop_id = popid
 
-        db.commit_insert_harbour_parameter_with_species_and_marketcat()
+        db.commit_harbour_parameter_with_species_and_marketcat()
 
 
 

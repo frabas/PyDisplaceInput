@@ -162,14 +162,11 @@ create table HarbourParametersWithSpeciesAndMarketCat
 	node_id int not null,
 	parameter text not null,
 	value numeric not null,
-	graphsce int not null,
 	marketcat int,
 	period text,
 	species int,
 	constraint pk_Harbours
-		primary key (node_id),
-	foreign key (graphsce, node_id) references Nodes
-		on update cascade on delete cascade
+		primary key (node_id, parameter, marketcat, period, species)
 );
 
 create index HarbourParametersWithSpeciesAndMarketCat_ByPop_index
@@ -287,14 +284,15 @@ create table VesselsSpe
 
 create table HarboursSpe
 (
-    node_id int not null,
+  node_id int not null,
 
-		graphsce int not null
-        references GraphSce
-            on update cascade on delete cascade,
-
-   	HarbourName TEXT
+	HarbourName TEXT
 				constraint HarboursSpe_pk
-            primary key
+            primary key,
+
+	graphsce int not null
+        references GraphSce
+            on update cascade on delete cascade
+
 
 );

@@ -65,7 +65,7 @@ class PyInput:
         FishfarmFeatures(),
         ShipFeatures(), ShipLanesLat(), ShipLanesLon(),
         FirmFeatures(),
-        HarbourFeatures() #, HarbourFishPrice()
+        HarbourFeatures(), HarbourFishPrice()
 
     )
 
