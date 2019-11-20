@@ -146,14 +146,15 @@ create table Harbours
 create table HarboursParameters
 (
    HarbourName TEXT    not null,
+   NodeId integer not null,
     Parameter  text    not null,
-    graphsce int not null,
+    graphsce integer,
 	  Opt1       numeric,
     Opt2       numeric,
     Period     numeric,
     Value      numeric not null,
     constraint HarboursParameters_pk
-        primary key (HarbourName, Parameter, Opt1, Opt2, Period)
+        primary key (HarbourName, NodeId, Parameter, Opt1, Opt2, Period)
  );
 
 create table HarbourParametersWithSpeciesAndMarketCat
@@ -286,10 +287,14 @@ create table VesselsSpe
 
 create table HarboursSpe
 (
-    graphsce   int not null
+    node_id int not null,
+
+		graphsce int not null
         references GraphSce
             on update cascade on delete cascade,
-    HarbourName TEXT
-        constraint HarboursSpe_pk
+
+   	HarbourName TEXT
+				constraint HarboursSpe_pk
             primary key
+
 );

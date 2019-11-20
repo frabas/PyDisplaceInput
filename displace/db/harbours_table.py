@@ -2,6 +2,7 @@
 class HarboursTable:
     TABLE_NAME = "HarboursParameters"
     FIELD_NAME = "HarbourName"
+    FIELD_NODE = "NodeId"
     FIELD_PARAM = "Parameter"
     FIELD_OPT1 = "Opt1"
     FIELD_OPT2 = "Opt2"

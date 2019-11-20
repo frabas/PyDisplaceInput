@@ -108,17 +108,17 @@ class Database:
     def commit_harbour_parameter_with_species_and_marketcat(self):
         self.commit()
 
-    def insert_harbour(self, harbour_name):
+    def insert_harbour(self, node_id, harbour_name):
         c = self.__db.cursor()
-        sql = "INSERT INTO HarboursSpe(HarbourName, graphsce) " \
-              "VALUES (?, ?)"
-        c.execute(sql, (harbour_name, self.graphsce))
+        sql = "INSERT INTO HarboursSpe(node_id, HarbourName, graphsce) " \
+              "VALUES (?, ?, ?)"
+        c.execute(sql, (node_id, harbour_name, self.graphsce))
         self.__db.commit()
 
-    def insert_harbour_parameter(self, harbour_name, parameter_name, opt1, opt2, period, value):
+    def insert_harbour_parameter(self, harbour_name, node_id, parameter_name, opt1, opt2, period, value):
         c = self.__db.cursor()
-        sql = "INSERT INTO HarboursParameters(HarbourName, Parameter, Opt1, Opt2, Period, Value) " \
-              "VALUES (?, ?, ?, ?, ?, ?)"
+        sql = "INSERT INTO HarboursParameters(HarbourName, NodeId, Parameter, Opt1, Opt2, Period, Value) " \
+              "VALUES (?, ?, ?, ?, ?, ?, ?)"
         c.execute(sql, (harbour_name, parameter_name, opt1, opt2, period, value))
         self.__db.commit()
 

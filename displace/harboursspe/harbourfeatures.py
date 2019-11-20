@@ -12,24 +12,26 @@ class HarbourFeaturesImporter(Importer):
         print("loading {}".format(os.path.abspath(path)))
 
         with open(path) as file:
-            rows = tuple(csv.reader(file, delimiter="|"))
+            rows = tuple(csv.reader(file, delimiter=" "))
 
         db.prepare_sql(HarboursTable.prepare_insert(HarboursTable.FIELD_NAME,
-                                                   HarboursTable.FIELD_PARAM,
+                                                    HarboursTable.FIELD_NODE,
+                                                    HarboursTable.FIELD_PARAM,
                                                    HarboursTable.FIELD_OPT1,
                                                    HarboursTable.FIELD_VALUE,
                                                    HarboursTable.FIELD_PERIOD
                                                    ))
 
-        for row in rows:
+        for row in rows[1:]:
             harbour_name = row[0]
-            self.insert_harbour(db, harbour_name)
+            node_id = row[1]
+            self.insert_harbour(db,  node_id, harbour_name)
             for i, feature in enumerate(row[1:]):
-                db.execute(harbour_name, self.feature_name, i + 1, feature, quarter)
+                db.execute(node_id, harbour_name, self.feature_name, i + 1, feature, quarter)
 
         db.commit()
 
-    def insert_harbour(self, db, harbour_name):
+    def insert_harbour(self, db, node_id, harbour_name):
         pass
 
 
@@ -41,5 +43,5 @@ class HarbourFeatures(HarbourFeaturesImporter):
     def import_file(self, db):
         self.do_import(db)
 
-    def insert_harbour(self, db, harbour_name):
-        db.insert_harbour(harbour_name)
+    def insert_harbour(self, db, node_id, harbour_name):
+        db.insert_harbour(node_id, harbour_name)
