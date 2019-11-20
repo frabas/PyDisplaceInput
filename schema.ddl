@@ -194,6 +194,25 @@ create table ShipsSpe
             primary key
 );
 
+create table FirmsParameters
+(
+    FirmName TEXT    not null,
+    Parameter  text    not null,
+    Opt1       numeric,
+    Opt2       numeric,
+    Period     numeric,
+    Value      numeric not null,
+    constraint FirmsParameters_pk
+        primary key (FirmName, Parameter, Opt1, Opt2, Period)
+);
+
+create table FirmsSpe
+(
+    FirmName TEXT
+        constraint FirmsSpe_pk
+            primary key
+);
+
 create table VesselsParameters
 (
     VesselName TEXT    not null,
