@@ -40,3 +40,6 @@ class FishfarmFeatures(FishfarmFeaturesImporter):
 
     def import_file(self, db):
         self.do_import(db)
+
+    def insert_fishfarm(self, db, fishfarm_name):
+        db.insert_fishfarm(fishfarm_name)
