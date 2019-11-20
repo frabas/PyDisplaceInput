@@ -7,7 +7,7 @@ the scenario name, the name and the input directory if it is not the
 current:
 
 ```
-PyDisplaceInput --verbose --overwrite --name fake \
+py_input.py --verbose --overwrite --name fake \
     --directory DISPLACE_input_minitest/ \
     baseline
 
