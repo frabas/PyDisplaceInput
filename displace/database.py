@@ -113,6 +113,20 @@ class Database:
         c.execute(sql, (vessel_name, parameter_name, opt1, opt2, period, value))
         self.__db.commit()
 
+    def insert_fishfarm(self, fishfarm_name):
+        c = self.__db.cursor()
+        sql = "INSERT INTO FishfarmsSpe(FishfarmName) " \
+              "VALUES (?)"
+        c.execute(sql, (fishfarm_name))
+        self.__db.commit()
+
+    def insert_fishfarm_parameter(self, fishfarm_name, parameter_name, opt1, opt2, period, value):
+        c = self.__db.cursor()
+        sql = "INSERT INTO FishfarmsParameters(FishfarmName, Parameter, Opt1, Opt2, Period, Value) " \
+              "VALUES (?, ?, ?, ?, ?, ?)"
+        c.execute(sql, (fishfarm_name, parameter_name, opt1, opt2, period, value))
+        self.__db.commit()
+
     def insert_config_entry(self, parameter, value):
         c = self.__db.cursor()
 

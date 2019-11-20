@@ -156,6 +156,25 @@ create table ScenarioConfig
 	value TEXT
 );
 
+create table FishfarmsParameters
+(
+    FishfarmName TEXT    not null,
+    Parameter  text    not null,
+    Opt1       numeric,
+    Opt2       numeric,
+    Period     numeric,
+    Value      numeric not null,
+    constraint FishfarmsParameters_pk
+        primary key (FishfarmName, Parameter, Opt1, Opt2, Period)
+);
+
+create table FishfarmsSpe
+(
+    FishfarmName TEXT
+        constraint FishfarmsSpe_pk
+            primary key
+);
+
 create table VesselsParameters
 (
     VesselName TEXT    not null,
