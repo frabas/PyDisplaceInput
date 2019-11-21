@@ -31,13 +31,15 @@ class MetierSelOgive(Importer):
 
             print("loading {}".format(os.path.abspath(file)))
 
+
             with open(file) as f:
                for species, vals in enumerate(csv.reader(f, delimiter=" ")):
                   for szgroup, value in enumerate(vals):
                       db.insert_metier_parameter_with_species_szgroup(
                                     metierid, "SelOgive", value, fleetsce, species, szgroup, period)
 
+            # the delimiter type can be an issue here for some existing Displace apps
 
-            db.commit_insert_metier_parameter_with_species_szgroup()
+        db.commit_insert_metier_parameter_with_species_szgroup()
 
 
