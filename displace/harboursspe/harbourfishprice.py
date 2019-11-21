@@ -12,7 +12,8 @@ class HarbourFishPrice(Importer):
             "harboursspe_{name}/*_quarter*_each_species_per_cat.dat"
         )
 
-        self.__re = re.compile(".*([0-99])_quarter([0-9])_each_species_per_cat.dat")
+        self.__re = re.compile(".*([0-9])_quarter([0-9])_each_species_per_cat.dat")
+# TODO: the nodeid is not captured adequately...we would expect the regex for all int to be '^[0-9]+$' ?
 
     def import_file(self, db):
         files = glob.glob(self.path)

@@ -108,6 +108,15 @@ class Database:
     def commit_harbour_parameter_with_species_and_marketcat(self):
         self.commit()
 
+    def prepare_insert_harbour_parameter_with_vesselsize(self):
+        self.prepare_sql("INSERT INTO HarbourParametersWithVesselSize VALUES (?, ?, ?, ?, ?)")
+
+    def insert_harbour_parameter_with_vesselsize(self, nodeid, parameter, value, period=None, vesselsize=None):
+        self.cur.execute(self.sql, (nodeid, parameter, value,  period, vesselsize))
+
+    def commit_harbour_parameter_with_vesselsize(self):
+        self.commit()
+
     def insert_harbour(self, node_id, harbour_name):
         c = self.__db.cursor()
         sql = "INSERT INTO HarboursSpe(node_id, HarbourName, graphsce) " \

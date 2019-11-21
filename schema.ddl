@@ -172,6 +172,16 @@ create table HarbourParametersWithSpeciesAndMarketCat
 create index HarbourParametersWithSpeciesAndMarketCat_ByPop_index
 	on HarbourParametersWithSpeciesAndMarketCat(node_id, marketcat, species);
 
+create table HarbourParametersWithVesselSize
+(
+	node_id int not null,
+	parameter text not null,
+	value numeric not null,
+	period text,
+	vesselsize int,
+	constraint pk_Harbours
+		primary key (node_id, parameter, period, vesselsize)
+);
 
 create table Scenarios
 (
