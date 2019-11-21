@@ -99,6 +99,17 @@ class Database:
     def commit_insert_population_parameter_with_szgroup_and_age(self):
         self.commit()
 
+
+    def prepare_insert_metier_parameter_with_landscape(self):
+        self.prepare_sql("INSERT INTO MetiersParametersWithLandscape VALUES (?, ?, ?, ?, ?, ?)")
+
+    def insert_metier_parameter_with_landscape(self, metierid, param, value, funcgroup=None, period=None,
+                                                         landscape=None):
+        self.cur.execute(self.sql, (metierid, param, value, funcgroup, period, landscape))
+
+    def commit_insert_metier_parameter_with_landscape(self):
+        self.commit()
+
     def prepare_insert_harbour_parameter_with_species_and_marketcat(self):
         self.prepare_sql("INSERT INTO HarbourParametersWithSpeciesAndMarketCat VALUES (?, ?, ?, ?, ?, ?)")
 

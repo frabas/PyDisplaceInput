@@ -185,6 +185,19 @@ create table BenthosParameters
 		primary key (landscape_id, parameter, period, funcgroup)
 );
 
+
+create table MetiersParametersWithLandscape
+(
+	metier_id int not null,
+	parameter text not null,
+	value numeric not null,
+	funcgroup int,
+	period text,
+	landscape int,
+	constraint pk_Metiers
+		primary key (metier_id, parameter, funcgroup, period, landscape)
+);
+
 create table Scenarios
 (
 	name text not null
