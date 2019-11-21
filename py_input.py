@@ -42,6 +42,7 @@ from displace.firmsspe.firmfeatures import *
 from displace.harboursspe.harbourfeatures import *
 from displace.harboursspe.harbourfishprice import HarbourFishPrice
 from displace.harboursspe.harbourfuelprice import HarbourFuelPrice
+from displace.benthosspe.carrying_cap_funcgrp import BenthosCarryingCap
 
 
 class PyInput:
@@ -66,7 +67,8 @@ class PyInput:
         FishfarmFeatures(),
         ShipFeatures(), ShipLanesLat(), ShipLanesLon(),
         FirmFeatures(),
-        HarbourFeatures(), HarbourFishPrice(), HarbourFuelPrice()
+        HarbourFeatures(), HarbourFishPrice(), HarbourFuelPrice(),
+        BenthosCarryingCap()
 
     )
 

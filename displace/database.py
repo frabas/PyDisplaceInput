@@ -131,6 +131,17 @@ class Database:
         c.execute(sql, (node_id, parameter_name, opt1, opt2, period, value))
         self.__db.commit()
 
+
+
+    def prepare_insert_benthos_parameter_with_funcgrp(self):
+        self.prepare_sql("INSERT INTO BenthosParameters VALUES (?, ?, ?, ?, ?)")
+
+    def insert_benthos_parameter_with_funcgrp(self, landscape_id, parameter, value, period=None, funcgroup=None):
+        self.cur.execute(self.sql, (landscape_id, parameter, value, period, funcgroup))
+
+    def commit_insert_benthos_parameter_with_funcgrp(self):
+        self.commit()
+
     def insert_vessel(self, vessel_name):
         c = self.__db.cursor()
         sql = "INSERT INTO VesselsSpe(VesselName, fleetsce) " \

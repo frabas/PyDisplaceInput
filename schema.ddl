@@ -183,6 +183,17 @@ create table HarbourParametersWithVesselSize
 		primary key (node_id, parameter, period, vesselsize)
 );
 
+create table BenthosParameters
+(
+	landscape_id int not null,
+	parameter text not null,
+	value numeric not null,
+	period text,
+	funcgroup int,
+	constraint pk_Harbours
+		primary key (landscape_id, parameter, period, funcgroup)
+);
+
 create table Scenarios
 (
 	name text not null
