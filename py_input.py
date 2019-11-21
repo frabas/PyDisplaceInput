@@ -48,6 +48,7 @@ from displace.benthosspe.mean_weight_funcgrp import BenthosMeanWeight
 from displace.benthosspe.recovery_rate_funcgrp import BenthosRecoveryRate
 from displace.benthosspe.prop_funcgrp import BenthosPropPerLandscape
 from displace.metiersspe.loss_with_one_trawl_path import MetierDepletionOnHab
+from displace.metiersspe.selectivity_ogive_per_pop import MetierSelOgive
 
 
 class PyInput:
@@ -74,7 +75,7 @@ class PyInput:
         FirmFeatures(),
         HarbourFeatures(), HarbourFishPrice(), HarbourFuelPrice(),
         BenthosCarryingCap(), BenthosMeanWeight(), BenthosRecoveryRate(), BenthosPropPerLandscape(),
-        MetierDepletionOnHab()
+        MetierDepletionOnHab(), MetierSelOgive()
 
     )
 

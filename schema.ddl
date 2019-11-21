@@ -192,11 +192,27 @@ create table MetiersParametersWithLandscape
 	parameter text not null,
 	value numeric not null,
 	funcgroup int,
-	period text,
+	period int,
 	landscape int,
 	constraint pk_Metiers
 		primary key (metier_id, parameter, funcgroup, period, landscape)
 );
+
+create table MetiersParametersWithSpeciesAndSzGroup
+(
+	metier_id int not null,
+	parameter text not null,
+	value numeric not null,
+	fleetsce int not null,
+	species int,
+	szgroup int,
+	period int,
+	constraint pk_MetiersParams
+		primary key (metier_id, parameter, fleetsce, species, szgroup),
+	foreign key (fleetsce) references FleetSce
+		on update cascade on delete cascade
+);
+
 
 create table Scenarios
 (

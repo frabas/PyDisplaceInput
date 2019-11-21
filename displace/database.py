@@ -110,6 +110,19 @@ class Database:
     def commit_insert_metier_parameter_with_landscape(self):
         self.commit()
 
+
+
+    def prepare_insert_metier_parameter_with_species_szgroup(self):
+        self.prepare_sql("INSERT INTO MetiersParametersWithSpeciesAndSzGroup VALUES (?, ?, ?, ?, ?, ?, ?)")
+
+    def insert_metier_parameter_with_species_szgroup(self, metierid, param, value, fleetsce, species, szgroup,
+                                                     period):
+        self.cur.execute(self.sql, (metierid, param, value, fleetsce, species, szgroup, period))
+
+    def commit_insert_metier_parameter_with_species_szgroup(self):
+        self.commit()
+
+
     def prepare_insert_harbour_parameter_with_species_and_marketcat(self):
         self.prepare_sql("INSERT INTO HarbourParametersWithSpeciesAndMarketCat VALUES (?, ?, ?, ?, ?, ?)")
 
