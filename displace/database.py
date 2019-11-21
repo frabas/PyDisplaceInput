@@ -180,6 +180,14 @@ class Database:
         c.execute(sql, (vessel_name, parameter_name, opt1, opt2, period, value))
         self.__db.commit()
 
+    def insert_metier(self, metier_name, metier_id):
+        c = self.__db.cursor()
+        sql = "INSERT INTO MetiersSpe(MetierName, fleetsce, metier_id) " \
+              "VALUES (?, ?, ?)"
+        c.execute(sql, (metier_name, self.fleetsce, metier_id))
+        self.__db.commit()
+
+
     def insert_fishfarm(self, fishfarm_name):
         c = self.__db.cursor()
         sql = "INSERT INTO FishfarmsSpe(FishfarmName) " \

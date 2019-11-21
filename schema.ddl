@@ -323,6 +323,37 @@ create table VesselsSpe
             primary key
 );
 
+create table MetiersParameters
+(
+    MetierName TEXT    not null,
+    Parameter  text    not null,
+    Opt1       numeric,
+    Opt2       numeric,
+    Period     numeric,
+    Value      numeric not null,
+    constraint MetiersParameters_pk
+        primary key (MetierName, Parameter, Opt1, Opt2, Period)
+);
+
+create index MetiersParameters_NameParameterPeriod_index
+    on MetiersParameters (MetierName, Parameter, Period);
+
+create index MetiersParameters_NameParameter_index
+    on MetiersParameters (MetierName, Parameter);
+
+
+create table MetiersSpe
+(
+    fleetsce   int not null
+        references FleetSce
+            on update cascade on delete cascade,
+    MetierName TEXT
+        constraint MetiersSpe_pk
+            primary key,
+		metier_id int
+);
+
+
 create table HarboursSpe
 (
   node_id int not null,
