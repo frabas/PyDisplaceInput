@@ -27,6 +27,7 @@ from displace.popsspe.spe_relative_stability import SpeRelativeStability
 from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.popsspe.static_avai import StaticAvaiFull
+from displace.popsspe.hab_delta_pop import SpeDeltaHab
 from displace.scenario import Scenario
 from displace.scenarioconfig import ScenarioConfig
 from displace.vesselsspe.freq_harbours import VesselFreqHarbours
@@ -43,6 +44,9 @@ from displace.harboursspe.harbourfeatures import *
 from displace.harboursspe.harbourfishprice import HarbourFishPrice
 from displace.harboursspe.harbourfuelprice import HarbourFuelPrice
 from displace.benthosspe.carrying_cap_funcgrp import BenthosCarryingCap
+from displace.benthosspe.mean_weight_funcgrp import BenthosMeanWeight
+from displace.benthosspe.recovery_rate_funcgrp import BenthosRecoveryRate
+from displace.benthosspe.prop_funcgrp import BenthosPropPerLandscape
 
 
 class PyInput:
@@ -56,7 +60,7 @@ class PyInput:
         SpeBase(), SpeInitialTac(), SsbR(), PercentAge(), Hyperstability(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
-        AvaiBetaSemester(), StaticAvaiFull(),
+        AvaiBetaSemester(), StaticAvaiFull(), SpeDeltaHab(),
         VesselEconomicFeatures(), VesselInitialCredit(),
         VesselFeatures(), VesselFishGrounds(), VesselsPercentTacs(), VesselsBetas(),
         VesselHarbours(), VesselFreqHarbours(),
@@ -68,7 +72,7 @@ class PyInput:
         ShipFeatures(), ShipLanesLat(), ShipLanesLon(),
         FirmFeatures(),
         HarbourFeatures(), HarbourFishPrice(), HarbourFuelPrice(),
-        BenthosCarryingCap()
+        BenthosCarryingCap(), BenthosMeanWeight(), BenthosRecoveryRate(), BenthosPropPerLandscape()
 
     )
 

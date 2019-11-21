@@ -104,8 +104,9 @@ create table PopulationParameters
 	biosce int not null,
 	period text,
 	country text,
+	landscape int,
 	constraint pk_PopulationParameters
-		primary key (pop_id, biosce, parameter, period, country),
+		primary key (pop_id, biosce, parameter, period, country, landscape),
 	foreign key (biosce, pop_id) references Populations
 		on update cascade on delete cascade
 );

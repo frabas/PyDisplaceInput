@@ -11,8 +11,8 @@ class StaticAvaiFull(Importer):
         super(StaticAvaiFull, self).__init__(
             "popsspe_{name}/static_avai/*spe_full_avai_szgroup_nodes_semester*.dat"
         )
-
-        self.__re = re.compile(".*(^[0-9]|[1-9][0-9]$)_quarter([0-9])spe_full_avai_szgroup_nodes_semester([0-9]).dat")
+        
+        self.__re = re.compile(".*(^[0-9]|[1-9][0-9]$)spe_full_avai_szgroup_nodes_semester([0-9]).dat")
 
     def import_file(self, db):
         files = glob.glob(self.path)
