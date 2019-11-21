@@ -133,16 +133,6 @@ create table PopulationParametersWithSizeGroupAndAge
 create index PopulationParametersWithSizeGroupAndAge_ByNode_index
 	on PopulationParametersWithSizeGroupAndAge (pop_id, size_group, age, node);
 
-create table Harbours
-(
-	id integer not null,
-	name text not null,
-	graphsce integer not null
-		references GraphSce
-			on update cascade on delete cascade,
-	constraint pk_Harbours
-		primary key (graphsce, id)
-);
 
 create table HarboursParameters
 (
