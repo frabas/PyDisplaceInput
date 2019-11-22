@@ -65,7 +65,6 @@ class PyInput:
         VesselEconomicFeatures(), VesselInitialCredit(),
         VesselFeatures(), VesselFishGrounds(), VesselFishHarbours(), VesselsPercentTacs(), VesselsBetas(),
         VesselPossibleMetiers(),
-        #removed: VesselPossibleMetier(), VesselFreqPossibleMetier(), replaced by VesselPossibleMetiers()
         VesselShapeCpueOnNodes(), VesselScaleCpueOnNodes(), VesselCpueOnNodes(),
         VesselPrices(),
         ClosuresMetier(), ClosuresVSize(),
@@ -75,9 +74,12 @@ class PyInput:
         HarbourFeatures(), HarbourFishPrice(), HarbourFuelPrice(),
         BenthosCarryingCap(), BenthosMeanWeight(), BenthosRecoveryRate(), BenthosPropPerLandscape(),
         MetierFeatures(), MetierDepletionOnHab(), MetierSelOgive(), MetierSelOgiveOth(),
-        MetierTargetStock(), MetierSpeedAtFishing(), MetierType(), MetierGearWidthModel(), MetierGearWidthA(), MetierGearWidthB(),
+        MetierTargetStock(), MetierSpeedAtFishing(), MetierType(), MetierGearWidthModel(), MetierGearWidthA(),
+        MetierGearWidthB(),
         MetierSuitableBottomType(), MetierRevenueCompleteness(),
         MetierBeta(), MetierDiscardRatio(), MetierStockIsAvoided(), MetierStockMLS(),
+
+
 
 
     )
