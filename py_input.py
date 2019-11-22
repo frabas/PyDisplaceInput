@@ -76,7 +76,9 @@ class PyInput:
         FirmFeatures(),
         HarbourFeatures(), HarbourFishPrice(), HarbourFuelPrice(),
         BenthosCarryingCap(), BenthosMeanWeight(), BenthosRecoveryRate(), BenthosPropPerLandscape(),
-        MetierFeatures(), MetierDepletionOnHab(), MetierSelOgive()
+        MetierFeatures(), MetierDepletionOnHab(), MetierSelOgive(),
+        MetierTargetStock(), MetierSpeedAtFishing(), MetierType(), MetierGearWidthModel(), MetierGearWidthA(), MetierGearWidthB(),
+        MetierSuitableBottomType(), MetierRevenueCompleteness()
 
     )
 

@@ -103,6 +103,8 @@ class VesselInitialCredit(VesselFeaturesImporter):
         with open(self.path) as file:
             rows = tuple(csv.reader(file, delimiter=" "))
 
+        print("Loading: {}".format(os.path.abspath(self.path)))
+
         for row in rows[1:]:
             if len(row) < 2:
                 continue
