@@ -112,7 +112,7 @@ class VesselInitialCredit(VesselFeaturesImporter):
         db.commit()
 
 
-class VesselsPercentTacsImporter(Importer):
+class VesselsDataPerPopSemesterImporter(Importer):
     def import_file(self, db):
         db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
                                                    VesselsTable.FIELD_PARAM,
@@ -145,13 +145,13 @@ class VesselsPercentTacsImporter(Importer):
         db.commit()
 
 
-class VesselsPercentTacs(VesselsPercentTacsImporter):
+class VesselsPercentTacs(VesselsDataPerPopSemesterImporter):
     def __init__(self):
         self.param = "percentTac"
         super().__init__("vesselsspe_{name}/vesselsspe_percent_tacs_per_pop_semester{{semester}}.dat")
 
 
-class VesselsBetas(VesselsPercentTacsImporter):
+class VesselsBetas(VesselsDataPerPopSemesterImporter):
     def __init__(self):
         self.param = "vesselBeta"
         super().__init__("vesselsspe_{name}/vesselsspe_betas_semester{{semester}}.dat")

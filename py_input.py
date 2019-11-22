@@ -78,7 +78,8 @@ class PyInput:
         BenthosCarryingCap(), BenthosMeanWeight(), BenthosRecoveryRate(), BenthosPropPerLandscape(),
         MetierFeatures(), MetierDepletionOnHab(), MetierSelOgive(),
         MetierTargetStock(), MetierSpeedAtFishing(), MetierType(), MetierGearWidthModel(), MetierGearWidthA(), MetierGearWidthB(),
-        MetierSuitableBottomType(), MetierRevenueCompleteness()
+        MetierSuitableBottomType(), MetierRevenueCompleteness(),
+        MetierBeta(), MetierDiscardRatio(), MetierStockIsAvoided(), MetierStockMLS()
 
     )
 

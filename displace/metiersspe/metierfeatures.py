@@ -221,3 +221,60 @@ class MetierRevenueCompleteness(MetierFeaturesImporter):
                 continue
             db.execute(row[0], "RevCompleteness", row[1])
         db.commit()
+
+
+
+class MetiersDataPerPopSemesterImporter(Importer):
+    def import_file(self, db):
+        db.prepare_sql(MetiersTable.prepare_insert(MetiersTable.FIELD_NAME,
+                                                   MetiersTable.FIELD_PARAM,
+                                                   MetiersTable.FIELD_OPT1,
+                                                   MetiersTable.FIELD_VALUE,
+                                                   MetiersTable.FIELD_PERIOD
+                                                   ))
+
+        for semester in 1, 2:
+            path = self.path.format(semester=semester)
+
+            print("Loading: {}".format(os.path.abspath(path)))
+            with open(path) as file:
+                rows = tuple(csv.reader(file, delimiter=" "))
+
+            lastname = ""
+            curpop = 0
+            for row in rows[1:]:
+                if len(row) < 2:
+                    continue
+
+                metier_name = row[0]
+                if lastname != metier_name:
+                    curpop = 0
+
+                db.execute(metier_name, self.param, curpop, row[1], semester)
+                curpop = curpop + 1
+                lastname = metier_name
+
+        db.commit()
+
+
+class MetierBeta(MetiersDataPerPopSemesterImporter):
+    def __init__(self):
+        self.param = "MetierBetaPop"
+        super().__init__("metiersspe_{name}/metierspe_betas_semester{{semester}}.dat")
+
+
+class MetierDiscardRatio(MetiersDataPerPopSemesterImporter):
+    def __init__(self):
+        self.param = "DiscardPopRatio"
+        super().__init__("metiersspe_{name}/metierspe_discardratio_limits_semester{{semester}}.dat")
+
+
+class MetierStockIsAvoided(MetiersDataPerPopSemesterImporter):
+    def __init__(self):
+        self.param = "StockIsAvoided"
+        super().__init__("metiersspe_{name}/metierspe_is_avoided_stocks_semester{{semester}}.dat")
+
+class MetierStockMLS(MetiersDataPerPopSemesterImporter):
+    def __init__(self):
+        self.param = "popMLS"
+        super().__init__("metiersspe_{name}/metierspe_mls_cat_semester{{semester}}.dat")
