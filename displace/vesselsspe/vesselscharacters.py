@@ -25,6 +25,7 @@ class VesselCharacterImporter(Importer):
         db.prepare_sql(VesselsTable.prepare_insert(VesselsTable.FIELD_NAME,
                                                    VesselsTable.FIELD_PARAM,
                                                    VesselsTable.FIELD_OPT1,
+                                                   VesselsTable.FIELD_OPT2,
                                                    VesselsTable.FIELD_PERIOD,
                                                    VesselsTable.FIELD_VALUE
                                                    ))
@@ -42,12 +43,13 @@ class VesselCharacterImporter(Importer):
                     continue
                 opt1 = row[0]
                 value = row[1]
-                db.execute(vars['name'], keyword, opt1, vars['period'], value)
+                db.execute(vars['name'], keyword, opt1, None, vars['period'], value)
 
         db.commit()
 
 
-class VesselPossibleMetier(VesselCharacterImporter):
+'''
+ class VesselPossibleMetier(VesselCharacterImporter):
     def __init__(self):
         super().__init__("vesselsspe_{name}/*_possible_metiers_quarter*.dat")
         self.__re = re.compile("([A-Za-z0-9]+)_possible_metiers_quarter([0-9]).dat")
@@ -83,6 +85,7 @@ class VesselFreqPossibleMetier(VesselCharacterImporter):
 
     def import_file(self, db):
         return self.do_import_file(db, "FreqPossibleMetier")
+'''
 
 
 class VesselShapeCpueOnNodes(VesselCharacterImporter):

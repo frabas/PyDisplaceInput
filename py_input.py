@@ -30,9 +30,7 @@ from displace.popsspe.static_avai import StaticAvaiFull
 from displace.popsspe.hab_delta_pop import SpeDeltaHab
 from displace.scenario import Scenario
 from displace.scenarioconfig import ScenarioConfig
-from displace.vesselsspe.freq_harbours import VesselFreqHarbours
 from displace.vesselsspe.vesselfeatures import *
-from displace.vesselsspe.vesselharbours import VesselHarbours
 from displace.vesselsspe.vesselparameters import VesselPrices
 from displace.vesselsspe.vesselscharacters import *
 from displace.fishfarmsspe.fishfarmfeatures import *
@@ -65,10 +63,10 @@ class PyInput:
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(), SpeDeltaHab(),
         VesselEconomicFeatures(), VesselInitialCredit(),
-        VesselFeatures(), VesselFishGrounds(), VesselsPercentTacs(), VesselsBetas(),
-        VesselHarbours(), VesselFreqHarbours(),
-        VesselPossibleMetier(), VesselFreqPossibleMetier(), VesselShapeCpueOnNodes(),
-        VesselScaleCpueOnNodes(), VesselCpueOnNodes(),
+        VesselFeatures(), VesselFishGrounds(), VesselFishHarbours(), VesselsPercentTacs(), VesselsBetas(),
+        VesselPossibleMetiers(),
+        #removed: VesselPossibleMetier(), VesselFreqPossibleMetier(), replaced by VesselPossibleMetiers()
+        VesselShapeCpueOnNodes(), VesselScaleCpueOnNodes(), VesselCpueOnNodes(),
         VesselPrices(),
         ClosuresMetier(), ClosuresVSize(),
         FishfarmFeatures(),
@@ -79,7 +77,8 @@ class PyInput:
         MetierFeatures(), MetierDepletionOnHab(), MetierSelOgive(), MetierSelOgiveOth(),
         MetierTargetStock(), MetierSpeedAtFishing(), MetierType(), MetierGearWidthModel(), MetierGearWidthA(), MetierGearWidthB(),
         MetierSuitableBottomType(), MetierRevenueCompleteness(),
-        MetierBeta(), MetierDiscardRatio(), MetierStockIsAvoided(), MetierStockMLS()
+        MetierBeta(), MetierDiscardRatio(), MetierStockIsAvoided(), MetierStockMLS(),
+
 
     )
 
