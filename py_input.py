@@ -6,6 +6,7 @@ A tool to read, translate and fill the displace input data (txt files) into a SQ
 from argparse import ArgumentParser
 
 from displace.config import Config
+from displace.calendar import Calendar
 from displace.graphsspe.closures import *
 from displace.graphsspe.coordnodes import *
 from displace.graphsspe.graphedges import GraphEdges
@@ -130,6 +131,9 @@ class PyInput:
         config = Config()
         config.setpath(self.__name)
         config.import_file(self.__dbobj)
+
+        calendar = Calendar(self.__name)
+        calendar.import_files(self.__dbobj, 2009, 2015)
 
         scenario = Scenario()
         scenario.setpath(self.__name, scenario=self.__scenario)
