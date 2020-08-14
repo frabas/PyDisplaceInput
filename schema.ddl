@@ -58,6 +58,7 @@ create table Nodes
 	bathymetry numeric,
 	shipping numeric,
 	silt numeric,
+	icesrectanglecode numeric,
 	benthosbio numeric,
 	benthosnum numeric,
 	graphsce integer not null
