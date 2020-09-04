@@ -25,11 +25,27 @@ class VesselFeaturesImporter(Importer):
                                                    VesselsTable.FIELD_PERIOD
                                                    ))
 
+        if self.feature_name is "feature":
+            features_names = ['','IsVesActive', 'VesSpeed', 'FuelLitrePerH',
+                              'VesLength','VesKW','VesStorageKg','VesFuelTankLitre',
+                              'NbPingsPerTrip','RestTimeParam1','RestTimeParam2',
+                              'TripDuration','FuelMultiSteamg','FuelMultiFishg',
+                              'FuelMultiReturg','FuelMultiInactiv','weekEndStartDay',
+                              'WeekEndEndDay','WorkHoursStart','WorkHoursEnd','FirmID',
+                              'IsVesRefFleet']
+        if self.feature_name is "economic_feature":
+            features_names = ['','NbCrew', 'AnnlOthIncome', 'LandCostsPercent',
+                              'CrewsharePercent','VarOthCostsPerEff',
+                              'AnnlInsurCostsPerCrew','LabourOpportyCosts','AnnlFTEhours',
+                              'AnnlOthFixedCosts','VesValue','AnnlDeprecRate',
+                              'OpportyInterestRate','AnnlDiscountRate','IdxVes']
+
         for row in rows:
             vessel_name = row[0]
             self.insert_vessel(db, vessel_name)
             for i, feature in enumerate(row[1:]):
-                db.execute(vessel_name, self.feature_name, i + 1, feature, quarter)
+                print (features_names[i+1])
+                db.execute(vessel_name, features_names[i+1], i + 1, feature, quarter)
 
         db.commit()
 
