@@ -25,7 +25,7 @@ class VesselFeaturesImporter(Importer):
                                                    VesselsTable.FIELD_PERIOD
                                                    ))
 
-        if self.feature_name is "feature":
+        if self.feature_name == "feature":
             features_names = ['','IsVesActive', 'VesSpeed', 'FuelLitrePerH',
                               'VesLength','VesKW','VesStorageKg','VesFuelTankLitre',
                               'NbPingsPerTrip','RestTimeParam1','RestTimeParam2',
@@ -33,7 +33,7 @@ class VesselFeaturesImporter(Importer):
                               'FuelMultiReturg','FuelMultiInactiv','weekEndStartDay',
                               'WeekEndEndDay','WorkHoursStart','WorkHoursEnd','FirmID',
                               'IsVesRefFleet']
-        if self.feature_name is "economic_feature":
+        if self.feature_name == "economic_feature":
             features_names = ['','NbCrew', 'AnnlOthIncome', 'LandCostsPercent',
                               'CrewsharePercent','VarOthCostsPerEff',
                               'AnnlInsurCostsPerCrew','LabourOpportyCosts','AnnlFTEhours',
