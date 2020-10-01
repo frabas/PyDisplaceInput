@@ -187,25 +187,25 @@ create table BenthosParameters
 
 create table MetiersParametersWithLandscape
 (
-	metier_id int not null,
-	parameter text not null,
-	value numeric not null,
+	MetierName int not null,
+	Parameter text not null,
+	Value numeric not null,
 	funcgroup int,
-	period int,
+	Period int,
 	landscape int,
 	constraint pk_Metiers
-		primary key (metier_id, parameter, funcgroup, period, landscape)
+		primary key (MetierName, Parameter, funcgroup, Period, landscape)
 );
 
 create table MetiersParametersWithSpeciesAndSzGroup
 (
-	metier_id int not null,
-	parameter text not null,
-	value numeric not null,
+	MetierName int not null,
+	Parameter text not null,
+	Value numeric not null,
 	fleetsce int not null,
 	species int,
 	szgroup int,
-	period int
+	Period int
 );
 
 
@@ -320,7 +320,7 @@ create table VesselsSpe
 
 create table MetiersParameters
 (
-    MetierName TEXT    not null,
+    MetierName int    not null,
     Parameter  text    not null,
     Opt1       numeric,
     Opt2       numeric,
@@ -342,10 +342,10 @@ create table MetiersSpe
     fleetsce   int not null
         references FleetSce
             on update cascade on delete cascade,
-    MetierName TEXT
+    metier_name TEXT
         constraint MetiersSpe_pk
             primary key,
-		metier_id int
+		MetierName int
 );
 
 

@@ -24,14 +24,14 @@ class MetierFeaturesImporter(Importer):
 
         for row in rows:
             metier_name = row[0]
-            metier_id= row[1]
-            self.insert_metier(db, metier_name, metier_id=metier_id)
+            MetierName= row[1]
+            self.insert_metier(db, metier_name, MetierName=MetierName)
             for i, feature in enumerate(row[2:]):
                 db.execute(metier_name, self.feature_name, i + 1, feature, quarter)
 
         db.commit()
 
-    def insert_metier(self, db, metier_name, metier_id=None):
+    def insert_metier(self, db, metier_name, MetierName=None):
         pass
 
 
@@ -40,8 +40,8 @@ class MetierFeatures(MetierFeaturesImporter):
         self.feature_name = "metiers_feature"
         super().__init__("metiersspe_{name}/combined_met_names.txt")
 
-    def insert_metier(self, db, metier_name, metier_id):
-        db.insert_metier(metier_name, metier_id)
+    def insert_metier(self, db, metier_name, MetierName):
+        db.insert_metier(metier_name, MetierName)
 
     def import_file(self, db):
         self.do_import(db)
