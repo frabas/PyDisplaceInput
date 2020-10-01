@@ -30,7 +30,7 @@ class VesselFeaturesImporter(Importer):
                               'VesLength','VesKW','VesStorageKg','VesFuelTankLitre',
                               'NbPingsPerTrip','RestTimeParam1','RestTimeParam2',
                               'TripDuration','FuelMultiSteamg','FuelMultiFishg',
-                              'FuelMultiReturg','FuelMultiInactiv','weekEndStartDay',
+                              'FuelMultiReturg','FuelMultiInactiv','WeekEndStartDay',
                               'WeekEndEndDay','WorkHoursStart','WorkHoursEnd','FirmID',
                               'IsVesRefFleet']
         if self.feature_name == "economic_feature":
