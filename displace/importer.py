@@ -160,7 +160,7 @@ class SingleRowPopulationParametersImporter(Importer, ABC):
 
             with open(path) as f:
                 # noinspection PyShadowingBuiltins
-                all = first, *others = tuple(csv.reader(f))
+                all = first, *others = tuple(csv.reader(f, delimiter=' '))
 
 
             if others:  # If values are in one column instead of one line
