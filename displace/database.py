@@ -100,7 +100,8 @@ class Database:
             cn = 0
             if len(r) > 0:
                 for value in r:
-                    c.execute(sql, (popid, self.biosce, period, rn, cn, value))
+                    # the convention is to store the matrix by column.
+                    c.execute(sql, (popid, self.biosce, period, cn, rn, value))
                     cn = cn+1
                 rn = rn+1
 
