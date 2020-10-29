@@ -1,5 +1,5 @@
 import os
-
+import csv
 from displace.importer import Importer
 
 
@@ -16,6 +16,6 @@ class SpeSizeTransitionMatrix(Importer):
             print("loading {}".format(os.path.abspath(path)))
 
             with open(path) as f:
-                tm = tuple(filter(None, map(str.strip, f)))
+                tm = tuple(csv.reader(f, delimiter=" "))
 
-            db.insert_population_parameter(popid, "spe_size_transition_matrix", "\n".join(tm))
+            db.insert_population_transition_matrix(popid=popid, period=None, values=tm )

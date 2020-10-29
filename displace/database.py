@@ -90,6 +90,23 @@ class Database:
 
         self.__db.commit()
 
+    def insert_population_transition_matrix(self, popid, period, values):
+        c = self.__db.cursor()
+
+        sql = "INSERT INTO PopulationTransitionMatrix (pop, biosce, period, sizegroup1, sizegroup2, value) VALUES (?, ?, ?, ?, ?, ?)"
+
+        rn = 0
+        for r in values:
+            cn = 0
+            if len(r) > 0:
+                for value in r:
+                    c.execute(sql, (popid, self.biosce, period, rn, cn, value))
+                    cn = cn+1
+                rn = rn+1
+
+        self.__db.commit()
+
+
     def prepare_insert_population_parameter_with_szgroup_and_age(self):
         self.prepare_sql("INSERT INTO PopulationParametersWithSizeGroupAndAge VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
 

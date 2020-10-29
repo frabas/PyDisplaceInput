@@ -135,6 +135,19 @@ create index PopulationParametersWithSizeGroupAndAge_ByNode_index
 	on PopulationParametersWithSizeGroupAndAge (pop_id, size_group, age, node);
 
 
+create table PopulationTransitionMatrix
+(
+    pop int not null,
+    biosce int not null,
+    period int,
+    sizegroup1 int not null,
+    sizegroup2 int not null,
+    value numeric
+);
+
+create index PopulationTransitionMatrix_index
+    on PopulationTransitionMatrix (pop, biosce, period);
+
 create table HarboursParameters
 (
    HarbourName TEXT    not null,
