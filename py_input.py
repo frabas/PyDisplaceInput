@@ -79,10 +79,6 @@ class PyInput:
         MetierGearWidthB(),
         MetierSuitableBottomType(), MetierRevenueCompleteness(),
         MetierBeta(), MetierDiscardRatio(), MetierStockIsAvoided(), MetierStockMLS(),
-
-
-
-
     )
 
     def __init__(self):
@@ -164,12 +160,17 @@ if __name__ == "__main__":
     parser.add_argument("--overwrite", "-w", action="store_true", help="Overwrite the output file if exists")
     parser.add_argument("--outfile", "-o",
                         help="The name of the db file that will receive the result. If existing, it will be overwritten")
+    parser.add_argument("--encoding", "-X",
+                        help="The text encoding to use, the default is the preferred encoding for this system, usually utf-8")
     parser.add_argument("sce", help="Scenario name, it will be also the name of the db file if no --outfile is specified (ex: baseline)")
     args = parser.parse_args()
 
     program = PyInput()
     if args.verbose:
         program.set_verbose(True)
+
+    if args.encoding:
+        Importer.Encoding = args.encoding
 
     if args.directory is None:
         program.set_input(os.path.curdir)

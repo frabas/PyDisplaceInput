@@ -11,7 +11,7 @@ class HarbourFeaturesImporter(Importer):
             path = self.path
         print("loading {}".format(os.path.abspath(path)))
 
-        with open(path) as file:
+        with open(path, encoding=Importer.Encoding) as file:
             rows = tuple(csv.reader(file, delimiter=" "))
 
         db.prepare_sql(HarboursTable.prepare_insert(HarboursTable.FIELD_NAME,
