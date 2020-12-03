@@ -28,7 +28,7 @@ from displace.popsspe.spe_relative_stability import SpeRelativeStability
 from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.popsspe.static_avai import StaticAvaiFull
-from displace.popsspe.hab_delta_pop import SpeDeltaHab
+from displace.benthosspe.hab_delta_pop import SpeDeltaHab
 from displace.scenario import Scenario
 from displace.scenarioconfig import ScenarioConfig
 from displace.vesselsspe.vesselfeatures import *
