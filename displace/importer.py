@@ -10,7 +10,10 @@ class Importer(ABC):
     An abstract class to import files into db
     """
 
-    Encoding = "UTF-8"
+    #Encoding = "UTF-8"
+    Encoding = "latin1"
+
+
 
     def __init__(self, path):
         self.__pathformat = path
