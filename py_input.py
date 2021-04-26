@@ -28,6 +28,7 @@ from displace.popsspe.spe_relative_stability import SpeRelativeStability
 from displace.popsspe.spe_size_transition_matrix import SpeSizeTransitionMatrix
 from displace.popsspe.spe_ssb_r import SsbR
 from displace.popsspe.static_avai import StaticAvaiFull
+from displace.popsspe.oth_land import OthLand
 from displace.benthosspe.hab_delta_pop import SpeDeltaHab
 from displace.scenario import Scenario
 from displace.scenarioconfig import ScenarioConfig
@@ -62,7 +63,7 @@ class PyInput:
         SpeBase(), SpeInitialTac(), SsbR(), PercentAge(), Hyperstability(),
         PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
-        AvaiBetaSemester(), StaticAvaiFull(), SpeDeltaHab(),
+        AvaiBetaSemester(), StaticAvaiFull(), OthLand(), SpeDeltaHab(),
         VesselEconomicFeatures(), VesselInitialCredit(),
         VesselFeatures(), VesselFishGrounds(), VesselFishHarbours(), VesselsPercentTacs(), VesselsBetas(),
         VesselPossibleMetiers(),

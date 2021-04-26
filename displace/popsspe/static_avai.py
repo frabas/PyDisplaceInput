@@ -81,3 +81,4 @@ class StaticAvaiFull(Importer):
                 oldnode_id = nodeid
 
         db.commit_insert_population_parameter_with_szgroup_and_age()
+
