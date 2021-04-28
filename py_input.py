@@ -15,6 +15,7 @@ from displace.popsspe.comcat import Comcat
 from displace.popsspe.hyperstability import Hyperstability
 from displace.popsspe.init_fecondity import InitFecondity
 from displace.popsspe.init_m import InitM
+from displace.popsspe.selected_szgroups import SelectedSzgroups
 from displace.popsspe.init_maturity import InitMaturity
 from displace.popsspe.init_pops import InitPops
 from displace.popsspe.init_prop_migrants_pops import InitPropMigrantsPops
@@ -61,7 +62,7 @@ class PyInput:
         NodesSilt(), NodesBenthosBio(), NodesBenthosNum(),
         GraphEdges(),
         SpeBase(), SpeInitialTac(), SsbR(), PercentAge(), Hyperstability(),
-        PercentSzGroup(), InitWeight(), InitM(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
+        PercentSzGroup(), InitWeight(), InitM(), SelectedSzgroups(), InitMaturity(), InitFecondity(), InitPops(), Comcat(),
         InitProprecru(), InitPropMigrantsPops(), SpeSizeTransitionMatrix(), SpeRelativeStability(),
         AvaiBetaSemester(), StaticAvaiFull(), OthLand(), SpeDeltaHab(),
         VesselEconomicFeatures(), VesselInitialCredit(),
