@@ -43,5 +43,6 @@ class HarbourFeatures(HarbourFeaturesImporter):
     def import_file(self, db):
         self.do_import(db)
 
-    def insert_harbour(self, db, node_id, harbour_name):
+    '''The harbour name and node id are exchanged in this file.'''
+    def insert_harbour(self, db, harbour_name, node_id):
         db.insert_harbour(node_id, harbour_name)
