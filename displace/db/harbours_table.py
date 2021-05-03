@@ -1,13 +1,13 @@
 
 class HarboursTable:
     TABLE_NAME = "HarboursParameters"
-    FIELD_NAME = "HarbourName"
-    FIELD_NODE = "NodeId"
-    FIELD_PARAM = "Parameter"
-    FIELD_OPT1 = "Opt1"
-    FIELD_OPT2 = "Opt2"
-    FIELD_PERIOD = "Period"
-    FIELD_VALUE = "Value"
+    FIELD_NAME = "harbour_name"
+    FIELD_NODE = "node_id"
+    FIELD_PARAM = "parameter"
+    FIELD_OPT1 = "opt1"
+    FIELD_OPT2 = "opt2"
+    FIELD_PERIOD = "period"
+    FIELD_VALUE = "value"
 
     def __init__(self):
         pass

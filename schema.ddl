@@ -150,19 +150,19 @@ create index PopulationTransitionMatrix_index
 
 create table HarboursParameters
 (
-   HarbourName TEXT    not null,
-   NodeId integer not null,
-    Parameter  text    not null,
-    graphsce integer,
-	  Opt1       numeric,
-    Opt2       numeric,
-    Period     numeric,
-    Value      numeric not null,
+    harbour_name TEXT    not null,
+    node_id integer not null,
+    parameter   text not null,
+    graphsce    integer,
+	opt1        numeric,
+    opt2        numeric,
+    period      numeric,
+    value       numeric not null,
     constraint HarboursParameters_pk
-        primary key (HarbourName, NodeId, Parameter, Opt1, Opt2, Period)
+        primary key (harbour_name, node_id, parameter, opt1, opt2, period)
  );
 
-create table HarbourParametersWithSpeciesAndMarketCat
+create table HarboursParametersWithSpeciesAndMarketCat
 (
 	node_id int not null,
 	parameter text not null,
@@ -172,10 +172,10 @@ create table HarbourParametersWithSpeciesAndMarketCat
 	species int
 );
 
-create index HarbourParametersWithSpeciesAndMarketCat_ByPop_index
-	on HarbourParametersWithSpeciesAndMarketCat(node_id, marketcat, species);
+create index HarboursParametersWithSpeciesAndMarketCat_ByPop_index
+	on HarboursParametersWithSpeciesAndMarketCat(node_id, marketcat, species);
 
-create table HarbourParametersWithVesselSize
+create table HarboursParametersWithVesselSize
 (
 	node_id int not null,
 	parameter text not null,
@@ -361,17 +361,11 @@ create table MetiersSpe
 		MetierName int
 );
 
-
 create table HarboursSpe
 (
-  node_id int not null,
-
-	HarbourName TEXT,
-
-
+    node_id int not null,
+	harbour_name TEXT,
 	graphsce int not null
         references GraphSce
             on update cascade on delete cascade
-
-
 );
