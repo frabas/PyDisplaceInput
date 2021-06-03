@@ -2,7 +2,7 @@ from displace.importer import HashFileImporter
 
 
 class Config(HashFileImporter):
-    params = ("nbpops", "nbbenthospops", "implicit_stocks", "calib_landings_stock",
+    params = ("nbpops", "nbmets", "nbbenthospops", "implicit_stocks", "calib_landings_stock",
               "calib_w_at_szgroup_stock", "calib_cpue_stock", "interesting_harbours",
               "implicit_pops_level2", "grouped_tacs", "nbcp_coupling_pops")
 
